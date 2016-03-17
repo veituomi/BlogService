@@ -1,4 +1,4 @@
 .DS_Store
 
-/config/*
-!/config/routes.php
+/config/database.php
+/config/environment.sh
