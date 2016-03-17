@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
+* [Linkki sovellukseemme](https://veituomi.users.cs.helsinki.fi/blogservice)
 * [Linkki dokumentaatiooni](https://www.github.com)
 
 ## Työn aihe
