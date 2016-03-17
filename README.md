@@ -8,7 +8,11 @@ Collaborators:
 Some relevant links:
 
 * [Project website](https://veituomi.users.cs.helsinki.fi/BlogService)
+<<<<<<< HEAD
 * [Link to documentation](https://github.com/veituomi/BlogService/blob/master/doc/dokumentaatio.pdf)
+=======
+* [Link to documentation](https://github.com/veituomi/BlogService/tree/master/doc)
+>>>>>>> 897fc568199e0378f53f501172bfb0466f96ac8b
 
 ## Project subject
 
