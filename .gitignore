@@ -1,4 +1,4 @@
 .DS_Store
 
-config/*
-!cofnig/routes.php
+/config/*
+!/config/routes.php
