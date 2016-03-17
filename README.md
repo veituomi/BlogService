@@ -1,10 +1,25 @@
-# Tietokantasovelluksen esittelysivu
+# Introduction to this database application:
 
-Yleisiä linkkejä:
+Collaborators:
 
-* [Linkki sovellukseemme](https://veituomi.users.cs.helsinki.fi/blogservice)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Veini](https://www.github.com/veituomi)
+* [Otto](https://www.github.com/leppaott)
 
-## Työn aihe
+Some relevant links:
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Pokemon-kanta.html) 
+* [Project website](https://veituomi.users.cs.helsinki.fi/BlogService)
+* [Link to documentation](https://github.com/veituomi/BlogService/tree/master/doc)
+
+## Project subject
+
+The idea of this project is to create a blog service that allows users to create blogs, write posts and comments.
+
+The service has login functionality and anyone can register to the service.
+
+What can you do in this service:
+
+* Register as a user and log in or out depending on whether you are logged in or not
+* Create a blog and edit it's name or who can write posts to it
+* Write and read posts
+* Write and read comments
+* Dislike posts or comments
