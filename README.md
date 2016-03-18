@@ -3,7 +3,7 @@
 Collaborators:
 
 * [Veini](https://www.github.com/veituomi)
-* [Otto](https://www.github.com/leppaott)
+* [leppaott](https://www.github.com/leppaott)
 
 Some relevant links:
 
@@ -19,7 +19,7 @@ The service has login functionality and anyone can register to the service.
 What can you do in this service:
 
 * Register as a user and log in or out depending on whether you are logged in or not
-* Create a blog and edit it's name or who can write posts to it
+* Create a blog and edit its name or who can write posts to it
 * Write and read posts
 * Write and read comments
 * Dislike posts or comments
