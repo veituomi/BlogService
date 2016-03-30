@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Pelaaminen elämäntyylinä</h1>
+  
+  <!-- For owner or admin only -->
+  <p>
+    <button class="btn btn-danger">Poista</button>
+  </p>
+  
+  
+  <!-- Description, statistics -->
+  
+  <!-- Use post_list.html with blog id as parameter here to show blog posts? -->
+  
+  <div class="list-group">
+    <a href="/post/1" class="list-group-item">
+      <h4 class="list-group-item-heading">Otsikko</h4>
+      <p>
+        Kirjoituksen sisältö
+      </p>
+    </a>
+    <a href="/post/1" class="list-group-item">
+      <h4 class="list-group-item-heading">Otsikko</h4>
+      <p>
+        Kirjoituksen sisältö
+      </p>
+    </a>
+  </div>
+  
+  
+{% endblock %}

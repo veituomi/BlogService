@@ -33,13 +33,29 @@
             <span class="icon-bar"></span>
           </button>
           <!-- Sovelluksen nimi -->
-          <a class="navbar-brand" href="{{base_path}}">Tsoha Bootstrap</a>
+          <a class="navbar-brand" href="{{base_path}}">Blogipalvelu</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
-            <li><a href="{{base_path}}">Etusivu</a></li>
+            <li><a href="#">Blogit</a></li>
+            <li><a href="#">Kirjoitukset</a></li>
+            <li><a href="#">Aihepiirit</a></li>
+            <li><a href="#">Käyttäjät</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Kirjaudu sisään</a></li>
+            <!-- Tai: -->
+            <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              Käyttäjän nimi <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Asetukset</a>
+                <li><a href="#">Kirjaudu ulos</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>

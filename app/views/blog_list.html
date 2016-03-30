@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Blogit</h1>
+
+  <p>
+    <a href="#" class="btn btn-primary">Luo blogi</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Kirjoittajia?</th>
+        <th>Uusin kirjoitus?</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- List blogs here -->
+      <tr>
+        <td><a href="#">Pelaaminen elämäntyylinä</a></td>
+        <td>1</td>
+        <td>ei vielä kirjoituksia</td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
