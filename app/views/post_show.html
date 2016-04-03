@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Kirjoituksen otsikko</h1>
+  
+  <!-- For owner or admin only -->
+  <p>
+    <button class="btn btn-default">Muokkaa</button>
+    <button class="btn btn-danger">Poista</button>
+  </p>
+  
+  <div class="panel panel-default">
+    Kirjoituksen sisältö
+  </div>
+  
+  <div>
+    Kommentit
+  </div>
+  
+  
+{% endblock %}

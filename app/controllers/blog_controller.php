@@ -9,5 +9,9 @@
     public static function show(){
    	  View::make('blog_show.html');
     }
+    
+    public static function edit(){
+   	  View::make('blog_edit.html');
+    }
 
   }
