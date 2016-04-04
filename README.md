@@ -23,3 +23,17 @@ What can you do in this service:
 * Write and read posts
 * Write and read comments
 * Dislike posts or comments
+
+Links to view designs:
+
+* [Main view](https://veituomi.users.cs.helsinki.fi/BlogService)
+* [Login](https://veituomi.users.cs.helsinki.fi/BlogService/login)
+* [Blog listing](https://veituomi.users.cs.helsinki.fi/BlogService/blog)
+* [Single blog view](https://veituomi.users.cs.helsinki.fi/BlogService/blog/1)
+* [Blog editing](https://veituomi.users.cs.helsinki.fi/BlogService/blog/edit/1)
+* [Post listing](https://veituomi.users.cs.helsinki.fi/BlogService/post)
+* [Single post view](https://veituomi.users.cs.helsinki.fi/BlogService/post/1)
+* [Post editing](https://veituomi.users.cs.helsinki.fi/BlogService/post/edit/1)
+* [User listing](https://veituomi.users.cs.helsinki.fi/BlogService/user)
+* [Single user view](https://veituomi.users.cs.helsinki.fi/BlogService/user/1)
+* [User editing](https://veituomi.users.cs.helsinki.fi/BlogService/user/edit/1)
