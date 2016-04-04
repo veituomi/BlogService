@@ -10,7 +10,7 @@ INSERT INTO Blog (name, description) VALUES ('Gurula kotina', 'Kertomuksia eläm
 INSERT INTO BlogOwner (userId, blogId) VALUES (1, 1);
 
 -- Create a post for the blog
-INSERT INTO BlogPost (blogId, title, content) VALUES (1, 'Otsikko', 'Kirjoituksen sisältö');
+INSERT INTO BlogPost (blogId, author, title, content) VALUES (1, 1, 'Otsikko', 'Kirjoituksen sisältö');
 
 -- Like the post
 INSERT INTO Likes (userId, postId) VALUES (2, 1);
