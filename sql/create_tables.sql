@@ -20,6 +20,7 @@ CREATE TABLE Admin (
 CREATE TABLE BlogPost (
 	postId serial PRIMARY KEY,
 	blogId int REFERENCES Blog(blogId),
+    title text NOT NULL,
 	content text NOT NULL,
 	date timestamp DEFAULT now()
 );
