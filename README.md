@@ -22,7 +22,7 @@ What can you do in this service:
 * Create a blog and edit its name or who can write posts to it
 * Write and read posts
 * Write and read comments
-* Dislike posts or comments
+* Like posts
 
 Links to view designs:
 
@@ -31,7 +31,6 @@ Links to view designs:
 * [Blog listing](https://veituomi.users.cs.helsinki.fi/BlogService/blog)
 * [Single blog view](https://veituomi.users.cs.helsinki.fi/BlogService/blog/1)
 * [Blog editing](https://veituomi.users.cs.helsinki.fi/BlogService/blog/edit/1)
-* [Post listing](https://veituomi.users.cs.helsinki.fi/BlogService/post)
 * [Single post view](https://veituomi.users.cs.helsinki.fi/BlogService/post/1)
 * [Post editing](https://veituomi.users.cs.helsinki.fi/BlogService/post/edit/1)
 * [User listing](https://veituomi.users.cs.helsinki.fi/BlogService/user)
