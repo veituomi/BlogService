@@ -23,6 +23,7 @@ INSERT INTO Tag (name) VALUES ('dull');
 INSERT INTO Tag (name) VALUES ('boring');
 INSERT INTO Tag (name) VALUES ('blunt');
 
--- Link tags to the blog
-INSERT INTO TagCloud (blogId, tagId) VALUES (1, 1);
-INSERT INTO TagCloud (blogId, tagId) VALUES (1, 2);
+-- Link tags to the blog (max 3 per BlogPost)
+INSERT INTO TagCloud (postId, tagId) VALUES (1, 1);
+INSERT INTO TagCloud (postId, tagId) VALUES (1, 2);
+INSERT INTO TagCloud (postId, tagId) VALUES (1, 3);

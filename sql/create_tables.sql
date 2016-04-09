@@ -41,7 +41,7 @@ CREATE TABLE Tag (
 
 CREATE TABLE TagCloud (
 	tagId int REFERENCES Tag(tagId),
-	blogId int REFERENCES Blog(blogId)
+	postId int REFERENCES BlogPost(postId)
 );
 
 CREATE TABLE BlogOwner (
