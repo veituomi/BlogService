@@ -1,16 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Pelaaminen elämäntyylinä</h1>
+  <h1>{{blog.name}}</h1>
   
   <!-- For owner or admin only -->
   <p>
-    <button class="btn btn-danger">Poista</button>
+    <a href="{{base_path}}/blog/edit/{{blog.blogId}}" class="btn btn-default">Muokkaa</a>
   </p>
   
-  
+  {{blog.description}}
   <!-- Description, statistics -->
-  
-  <!-- Use post_list.html with blog id as parameter here to show blog posts? -->
   
   {% include "post_list.html" %}
   

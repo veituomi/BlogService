@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Kirjoituksen otsikko</h1>
+  <h1>Muokkaa kirjoitusta</h1>
+  
+  <button class="btn btn-danger">Poista</button>
   
   <form>
     <!-- Text field for post title -->
     <div class="form-group">
       <label>Otsikko</label>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" value="{{post.title}}">
     </div>
 
     <!-- Editing component for the content -->
     <div class="form-group">
       <label>Sisältö</label>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" value="{{post.content}}">
     </div>
 
     <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>

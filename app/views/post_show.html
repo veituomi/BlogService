@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Kirjoituksen otsikko</h1>
+  <a href="{{base_path}}/blog/{{post.blogId}}">Palaa blogiin</a>
+  <h1>{{post.title}}</h1>
   
   <!-- For owner or admin only -->
   <p>
-    <button class="btn btn-default">Muokkaa</button>
-    <button class="btn btn-danger">Poista</button>
+    <a href="{{base_path}}/post/edit/{{post.postId}}" class="btn btn-default">Muokkaa</a>
   </p>
   
   <div class="panel panel-default">
-    Kirjoituksen sisältö
+    {{post.content}}
   </div>
   
   <div>

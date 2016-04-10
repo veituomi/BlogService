@@ -16,24 +16,29 @@
     BlogController::index();
   });
   
-  $routes->get('/blog/1', function() {
-    BlogController::show();
+  $routes->get('/blog/:id', function($id) {
+    BlogController::show($id);
   });
   
-  $routes->get('/blog/edit/1', function() {
-    BlogController::edit();
+  $routes->get('/blog/edit/:id', function($id) {
+    BlogController::edit($id);
   });
   
   $routes->get('/post', function() {
     PostController::index();
   });
   
-  $routes->get('/post/1', function() {
-    PostController::show();
+  // All posts related to a certain blog
+  $routes->get('/post/b/:id', function($id) {
+    PostController::listed($id);
   });
   
-  $routes->get('/post/edit/1', function() {
-    PostController::edit();
+  $routes->get('/post/:id', function($id) {
+    PostController::show($id);
+  });
+  
+  $routes->get('/post/edit/:id', function($id) {
+    PostController::edit($id);
   });
   
   $routes->get('/user', function() {

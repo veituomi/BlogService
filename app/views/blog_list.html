@@ -3,25 +3,24 @@
   <h1>Blogit</h1>
 
   <p>
-    <a href="#" class="btn btn-primary">Luo blogi</a>
+    <a href="{{base_path}}/blog/new" class="btn btn-primary">Luo blogi</a>
   </p>
 
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
         <th>Nimi</th>
-        <th>Kirjoittajia?</th>
-        <th>Uusin kirjoitus?</th>
+        <th>Kuvaus</th>
       </tr>
     </thead>
 
     <tbody>
-      <!-- List blogs here -->
+      {% for blog in blogs %}
       <tr>
-        <td><a href="#">Pelaaminen elämäntyylinä</a></td>
-        <td>1</td>
-        <td>ei vielä kirjoituksia</td>
+        <td><a href="{{base_path}}/blog/{{blog.blogId}}">{{blog.name}}</a></td>
+        <td>{{blog.description}}</td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 {% endblock %}

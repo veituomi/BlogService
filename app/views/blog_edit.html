@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Blogin nimi</h1>
+  <h1>{{blog.name}}</h1>
   
   <button class="btn btn-danger">Poista blogi</button>
   
   <form>
     <div class="form-group">
       <label>Kuvaus</label>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" value="{{blog.description}}">
     </div>
 
     <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>

@@ -15,10 +15,10 @@
     <div class="collapse navbar-collapse" id="navigation">
         <ul class="nav navbar-nav">
             <!-- Navigation links -->
-            <li><a href="#">Blogit</a></li>
+            <li><a href="{{base_path}}/blog">Blogit</a></li>
             <!--<li><a href="./post">Kirjoitukset</a></li>-->
-            <li><a href="#">Aihepiirit</a></li>
-            <li><a href="#">Käyttäjät</a></li>
+            <!--<li><a href="{{base_path}}/">Aihesanat</a></li>-->
+            <li><a href="{{base_path}}/user">Käyttäjät</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -29,7 +29,7 @@
                     <input type="text" class="form-control" placeholder="Haku">
                 </div>
             </li>
-            <li><a href="#">Kirjaudu sisään</a></li>
+            <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
             <!-- Show the one above or below depending on the login status -->
             <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
