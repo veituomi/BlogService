@@ -38,4 +38,12 @@ class Blog extends BaseModel {
         
         return null;
     }
+    
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO Blog (name, description) VALUES (:name, :description) RETURNING blogId');
+        $query->execute(array('name' => $this->name, 'description' => $this->description);
+        $row = $query->fetch();
+        $this->blogId = $row['blogId'];
+    }
+    
 }

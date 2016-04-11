@@ -6,14 +6,23 @@ class Post extends BaseModel {
         parent::__construct($attributes);
     }
     
-    public static function all($blogId = -1) {
+    //all or all in blog or all by user, a good design decision? Only in PHP
+    public static function all($blogId = -1, $userId = -1) {
+        if ($blogId != -1 && $userId != -1) {
+            return null;
+        }
+        
         $q = 'SELECT * FROM BlogPost;';
+        
         if ($blogId != -1) {
             $q = 'SELECT * FROM BlogPost WHERE blogId = ?;';
+        } elseif ($userId != -1) {
+            $q = 'SELECT * FROM BlogPost WHERE author = ?;';
         }
+        
         $query = DB::connection()->prepare($q);
-        if ($blogId != -1) {
-            $query->execute(array($blogId));
+        if ($blogId != -1 || $userId != -1) {
+            $query->execute(array(max($blogId, $userId)));
         } else {
             $query->execute();
         }
@@ -49,4 +58,12 @@ class Post extends BaseModel {
         
         return null;
     }
+    
+    public function save() {
+        $query = DB::connection()->prepare('INSERT INTO BlogPost (blogId, author, title, content) VALUES (:blogId, :author, :title, :content) RETURNING postId');
+        $query->execute(array('blogId' => $this->blogId, 'author' => $this->author, 'title' => $this->title, 'content' => $this->content));
+        $row = $query->fetch();
+        $this->postId = $row['postId'];
+    }
+    
 }
