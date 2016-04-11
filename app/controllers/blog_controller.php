@@ -19,5 +19,22 @@ class BlogController extends BaseController{
         $blog = Blog::find($id);
    	    View::make('blog_edit.html', array('blog' => $blog));
     }
+    
+    public static function create() {
+   	    //View::make('blog_create.html');
+    }
+    
+    public static function store() {
+        $params = $_POST;
+        
+        $blog = new Blog(array(
+                'name' => $params['name'],
+                'description' => $params['description']
+        ));
+        
+        $blog->save();
+        
+        Redirect::to('/blog/' . $blog->blogId);
+    }
 
   }

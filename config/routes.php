@@ -16,6 +16,14 @@
     BlogController::index();
   });
   
+  $routes->post('/blog', function() {
+      BlogController::store();
+  });
+  
+  $routes->get('/blog/new', function() {
+    BlogController::create();
+  });
+  
   $routes->get('/blog/:id', function($id) {
     BlogController::show($id);
   });
