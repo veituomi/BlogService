@@ -1,11 +1,11 @@
 <?php
 
   $routes->get('/', function() {
-    HelloWorldController::index();
+    HomeController::index();
   });
 
-  $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
+  $routes->get('/sandbox', function() {
+    HomeController::sandbox();
   });
 
   $routes->get('/login', function() {
