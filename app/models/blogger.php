@@ -28,7 +28,7 @@ class Blogger extends BaseModel {
                 'password' => $row['password'],
                 'joinDate' => $row['joinDate'],
                 'profileDescription' => $row['profileDescription']
-            );
+            ));
         }
         
         return $bloggers;
