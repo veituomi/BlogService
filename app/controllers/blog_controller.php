@@ -10,7 +10,7 @@ class BlogController extends BaseController{
     
     public static function show($id) {
         $blog = Blog::find($id);
-        $posts = Post::all($id);
+        $posts = Post::allInPost($id);
         
    	    View::make('blog_show.html', array('blog' => $blog, 'posts' => $posts));
     }
@@ -26,14 +26,12 @@ class BlogController extends BaseController{
     
     public static function store() {
         $params = $_POST;
-        
         $blog = new Blog(array(
                 'name' => $params['name'],
                 'description' => $params['description']
         ));
         
-        $blog->save();
-        
+        $blog->save();    
         Redirect::to('/blog/' . $blog->blogId);
     }
 

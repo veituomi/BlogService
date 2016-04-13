@@ -17,7 +17,7 @@
   });
   
   $routes->post('/blog', function() {
-      BlogController::store();
+    BlogController::store();
   });
   
   $routes->get('/blog/new', function() {

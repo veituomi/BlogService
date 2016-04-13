@@ -7,8 +7,16 @@ class Blogger extends BaseModel {
     }
     
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Blogger;');
-        $query->execute();
+        return self::queryAndCollect('SELECT * FROM Blogger;');
+    }
+    
+    public static function find($userId) {
+        return self::queryAndCollect('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;', $userId);
+    }
+    
+    private static function queryAndCollect($q) {
+        $query = DB::connection()->prepare($q);
+        $query->execute(func_get_args());
         
         $rows = $query->fetchAll();
         $bloggers = array();
@@ -20,28 +28,12 @@ class Blogger extends BaseModel {
                 'password' => $row['password'],
                 'joinDate' => $row['joinDate'],
                 'profileDescription' => $row['profileDescription']
-            ));
+            );
         }
+        
         return $bloggers;
     }
     
-    public static function find($userId) {
-        $query = DB::connection()->prepare('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;');
-        $query->execute(array($userId));    
-        $row = $query->fetch();
-        
-        if ($row) {
-            return new Blogger(array(
-                'userId' => $row['userId'],
-                'username' => $row['username'],
-                'password' => $row['password'],
-                'joinDate' => $row['joinDate'],
-                'profileDescription' => $row['profileDescription']
-            ));
-        }
-        
-        return null;
-    }
     //$joinDate not valid after save
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Blogger (username, email, password, profileDescription) 

@@ -8,7 +8,7 @@ class PostController extends BaseController{
 
     // For testing purposes only
     public static function listed($blogId) {
-        $posts = Post::all($blogId);
+        $posts = Post::allInBlog($blogId);
    	    View::make('post_list.html', array('posts' => $posts));
     }
     
