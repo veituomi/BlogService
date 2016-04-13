@@ -7,8 +7,16 @@ class Blog extends BaseModel {
     }
     
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Blog;');
-        $query->execute();
+        return self::queryAndCollect('SELECT * FROM Blog;');
+    }
+    
+    public static function find($blogId) {
+        return self::queryAndCollect('SELECT * FROM Blog WHERE BlogId = ? LIMIT 1;', $blogId);
+    }
+    
+    private static function queryAndCollect($q) {
+        $query = DB::connection()->prepare(q);
+        $query->execute(func_get_args());
         
         $rows = $query->fetchAll();
         $blogs = array();
@@ -18,30 +26,15 @@ class Blog extends BaseModel {
                 'blogId' => $row['blogid'],
                 'name' => $row['name'],
                 'description' => $row['description']
-            ));
+            );
         }
+        
         return $blogs;
-    }
-    
-    public static function find($blogId) {
-        $query = DB::connection()->prepare('SELECT * FROM Blog WHERE BlogId = ? LIMIT 1;');
-        $query->execute(array($blogId));
-        
-        $row = $query->fetch();
-        if ($row) {
-            return new Blog(array(
-                'blogId' => $row['blogid'],
-                'name' => $row['name'],
-                'description' => $row['description']
-            ));
-        }
-        
-        return null;
     }
     
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Blog (name, description) VALUES (:name, :description) RETURNING blogId');
-        $query->execute(array('name' => $this->name, 'description' => $this->description));
+        $query->execute(array('name' => $this->name, 'description' => $this->description);
         $row = $query->fetch();
         $this->blogId = $row['blogId'];
     }
