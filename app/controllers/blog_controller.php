@@ -10,7 +10,7 @@ class BlogController extends BaseController{
     
     public static function show($id) {
         $blog = Blog::find($id);
-        $posts = Post::allInPost($id);
+        $posts = Post::allInBlog($id);
         
    	    View::make('blog_show.html', array('blog' => $blog, 'posts' => $posts));
     }
@@ -21,7 +21,7 @@ class BlogController extends BaseController{
     }
     
     public static function create() {
-   	    //View::make('blog_create.html');
+   	    View::make('blog_create.html');
     }
     
     public static function store() {

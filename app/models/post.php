@@ -11,20 +11,22 @@ class Post extends BaseModel {
     }
     
     public static function allInBlog($blogId) {
-        return self::queryAndCollect('SELECT * FROM BlogPost WHERE blogId = ?', $blogId);
+        return self::queryAndCollect('SELECT * FROM BlogPost WHERE blogId = ?', array($blogId));
     }
     
     public static function allByUser($userId) {
-        return self::queryAndCollect('SELECT * FROM BlogPost WHERE author = ?;', $userId);
+        return self::queryAndCollect('SELECT * FROM BlogPost WHERE author = ?;', array($userId));
     }
     
     public static function find($postId) {   
-        return self::queryAndCollect('SELECT * FROM BlogPost WHERE postId = ? LIMIT 1;', $postId);
+        $list = self::queryAndCollect('SELECT * FROM BlogPost WHERE postId = ? LIMIT 1;', array($postId));
+        if (isset($list[0])) return $list[0];
+        return null;
     }
     
-   public static function queryAndCollect($q) {       
+   public static function queryAndCollect($q, $args = array()) {       
         $query = DB::connection()->prepare($q);
-        $query->execute(func_get_args());
+        $query->execute($args);
         
         $rows = $query->fetchAll();
         $posts = array();
