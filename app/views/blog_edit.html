@@ -2,7 +2,9 @@
 {% block content %}
   <h1>{{blog.name}}</h1>
   
-  <button class="btn btn-danger">Poista blogi</button>
+  <form action="{{base_path}}/blog/{{blog.blogId}}/destroy" method="post">
+    <input type="submit" class="btn btn-danger" value="Poista blogi" />
+  </form>
   
   <form>
     <div class="form-group">

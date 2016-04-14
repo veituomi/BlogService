@@ -28,8 +28,12 @@
     BlogController::show($id);
   });
   
-  $routes->get('/blog/edit/:id', function($id) {
+  $routes->get('/blog/:id/edit', function($id) {
     BlogController::edit($id);
+  });
+  
+  $routes->post('/blog/:id/destroy', function($id) {
+    BlogController::destroy($id);
   });
   
   $routes->get('/post', function() {
@@ -45,7 +49,7 @@
     PostController::show($id);
   });
   
-  $routes->get('/post/edit/:id', function($id) {
+  $routes->get('/post/:id/edit', function($id) {
     PostController::edit($id);
   });
   
@@ -53,10 +57,10 @@
     UserController::index();
   });
   
-  $routes->get('/user/1', function() {
-    UserController::show();
+  $routes->get('/user/:id', function($id) {
+    UserController::show($id);
   });
 
-  $routes->get('/user/edit/1', function() {
-    UserController::edit();
+  $routes->get('/user/:id/edit', function($id) {
+    UserController::edit($id);
   });

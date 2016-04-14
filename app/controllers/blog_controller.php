@@ -24,6 +24,11 @@ class BlogController extends BaseController{
    	    View::make('blog_create.html');
     }
     
+    public static function destroy($id) {
+        Blog::destroy($id);
+        Redirect::to('/blog');
+    }
+    
     public static function store() {
         $params = $_POST;
         $blog = new Blog(array(

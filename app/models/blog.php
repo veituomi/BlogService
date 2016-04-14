@@ -16,9 +16,18 @@ class Blog extends BaseModel {
         return null;
     }
     
-    private static function queryAndCollect($q, $args = array()) {
+    public static function destroy($blogId) {
+        self::query('DELETE FROM Blog WHERE BlogId = ?;', array($blogId));
+    }
+    
+    private static function query($q, $args) {
         $query = DB::connection()->prepare($q);
         $query->execute($args);
+        return $query;
+    }
+    
+    private static function queryAndCollect($q, $args = array()) {
+        $query = self::query($q, $args);
         
         $rows = $query->fetchAll();
         $blogs = array();
