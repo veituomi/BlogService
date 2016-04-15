@@ -1,60 +1,60 @@
 CREATE TABLE Blogger (
-	userId serial PRIMARY KEY,
+	user_id serial PRIMARY KEY,
 	username text NOT NULL UNIQUE ,
 	email text NOT NULL UNIQUE ,
 	password text NOT NULL,
-	joinDate timestamp DEFAULT now(),
-	profileDescription text
+	join_date timestamp DEFAULT now(),
+	profile_description text
 );
 
 CREATE TABLE Blog (
-    blogId serial PRIMARY KEY,
+    blog_id serial PRIMARY KEY,
     name text NOT NULL,
     description text
 );
 
 CREATE TABLE Admin (
-	userId int REFERENCES Blogger(userId)
+	user_id int REFERENCES Blogger(user_id)
 );
 
 CREATE TABLE BlogPost (
-	postId serial PRIMARY KEY,
-	blogId int REFERENCES Blog(blogId),
-    author int REFERENCES Blogger(userId),
+	post_id serial PRIMARY KEY,
+	blog_id int REFERENCES Blog(blog_id),
+    author int REFERENCES Blogger(user_id),
     title text NOT NULL,
 	content text NOT NULL,
 	date timestamp DEFAULT now()
 );
 
 CREATE TABLE Comment (
-	commentId serial PRIMARY KEY,
-	postId int REFERENCES BlogPost(postId),
-	userId int REFERENCES Blogger(userId),
+	comment_id serial PRIMARY KEY,
+	post_id int REFERENCES BlogPost(post_id),
+	user_id int REFERENCES Blogger(user_id),
 	content text NOT NULL,
 	date timestamp DEFAULT now()
 );
 
 CREATE TABLE Tag (
-	tagId serial PRIMARY KEY,
+	tag_id serial PRIMARY KEY,
 	name text NOT NULL
 );
 
 CREATE TABLE TagCloud (
-	tagId int REFERENCES Tag(tagId),
-	postId int REFERENCES BlogPost(postId)
+	tag_id int REFERENCES Tag(tag_id),
+	post_id int REFERENCES BlogPost(post_id)
 );
 
 CREATE TABLE BlogOwner (
-	userId int REFERENCES Blogger(userId),
-	blogId int REFERENCES Blog(blogId)
+	user_id int REFERENCES Blogger(user_id),
+	blog_id int REFERENCES Blog(blog_id)
 );
 
 CREATE TABLE Likes (
-userId int REFERENCES Blogger(userId),
-	postId int REFERENCES BlogPost(postId)
+    user_id int REFERENCES Blogger(user_id),
+	post_id int REFERENCES BlogPost(post_id)
 );
 
 CREATE TABLE Follows (
-	follower int REFERENCES Blogger(userId),
-	followee int REFERENCES Blogger(userId)
+	follower int REFERENCES Blogger(user_id),
+	followee int REFERENCES Blogger(user_id)
 );

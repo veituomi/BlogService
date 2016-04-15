@@ -1,6 +1,6 @@
 <?php
 class Blog extends BaseModel {
-    public $blogId, $name, $description;
+    public $blog_id, $name, $description;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,31 +10,24 @@ class Blog extends BaseModel {
         return self::queryAndCollect('SELECT * FROM Blog;');
     }
     
-    public static function find($blogId) {
-        $list = self::queryAndCollect('SELECT * FROM Blog WHERE BlogId = ? LIMIT 1;', array($blogId));
-        if (isset($list[0])) return $list[0];
+    public static function find($blog_id) {
+        $list = self::queryAndCollect('SELECT * FROM Blog WHERE blog_id = ? LIMIT 1;', array($blog_id));
+        if (empty($list)) return $list[0];
         return null;
     }
     
-    public static function destroy($blogId) {
-        self::query('DELETE FROM Blog WHERE BlogId = ?;', array($blogId));
-    }
-    
-    private static function query($q, $args) {
-        $query = DB::connection()->prepare($q);
-        $query->execute($args);
-        return $query;
+    public static function destroy($blog_id) {
+        DB::query('DELETE FROM Blog WHERE blog_id = ?;', array($blog_id));
     }
     
     private static function queryAndCollect($q, $args = array()) {
-        $query = self::query($q, $args);
-        
+        $query = DB::query($q, $args);  
         $rows = $query->fetchAll();
         $blogs = array();
         
         foreach ($rows as $row) {
             $blogs[] = new Blog(array(
-                'blogId' => $row['blogid'],
+                'blog_id' => $row['blog_id'],
                 'name' => $row['name'],
                 'description' => $row['description']
             ));
@@ -44,10 +37,10 @@ class Blog extends BaseModel {
     }
     
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Blog (name, description) VALUES (:name, :description) RETURNING blogId');
-        $query->execute(array('name' => $this->name, 'description' => $this->description));
+        $query = DB::query('INSERT INTO Blog (name, description) VALUES (:name, :description) RETURNING blog_id',
+            array('name' => $this->name, 'description' => $this->description));
         $row = $query->fetch();
-        $this->blogId = $row['blogid'];
+        $this->blog_id = $row['blog_id'];
     }
     
 }

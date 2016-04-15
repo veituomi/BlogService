@@ -33,5 +33,11 @@
 
         exit();
       }
-
+      
+    public static function query($q, $args) {
+        $query = self::connection()->prepare($q);
+        $query->execute($args);
+        return $query;
+    }
+    
   }

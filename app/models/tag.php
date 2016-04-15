@@ -1,6 +1,6 @@
 <?php
 class Tag extends BaseModel {
-    public $tagId, $name;
+    public $tag_id, $name;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -12,23 +12,21 @@ class Tag extends BaseModel {
     
     public static function allInPost($postId) {
         return self::queryAndCollect('SELECT * FROM Tag t, TagCloud tc, BlogPost p 
-                WHERE t.tagId = tc.tagId AND tc.postId = p.postId AND p.postId = ?;', $postId);
+                WHERE t.tag_id = tc.tag_id AND tc.postId = p.postId AND p.postId = ?;', $postId);
     }
     
-    public static function find($tagId) {
-        return self::queryAndCollect('SELECT * FROM Tag WHERE tagId = ? LIMIT 1;', $tagId);
+    public static function find($tag_id) {
+        return self::queryAndCollect('SELECT * FROM Tag WHERE tag_id = ? LIMIT 1;', $tag_id);
     }
     
-    private static function queryAndCollect($q) {
-        $query = DB::connection()->prepare($q);
-        $query->execute(func_get_args());    
-           
+    private static function queryAndCollect($q, $args = array() {
+        $query = DB::query($q, $args)             
         $rows = $query->fetchAll();
         $tags = array();
           
         foreach ($rows as $row) {
             $tags[] = new Tag(array(
-                'tagId' => $row['tagId'],
+                'tag_id' => $row['tag_id'],
                 'name' => $row['name']
             ));
         }
@@ -37,10 +35,10 @@ class Tag extends BaseModel {
     }
     
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Tag (name) VALUES(:name) RETURNING tagId');
-        $query->execute(array('name' => $this->name));
+        $query = DB::query('INSERT INTO Tag (name) VALUES(:name) RETURNING tag_id', 
+            array('name' => $this->name));
         $row = $query->fetch();
-        $this->tagId = $row['tagId'];
+        $this->tag_id = $row['tag_id'];
     }
     
 }

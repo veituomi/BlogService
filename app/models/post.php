@@ -1,6 +1,6 @@
 <?php
 class Post extends BaseModel {
-    public $postId, $blogId, $author, $title, $content;
+    public $post_id, $blog_id, $author, $title, $content;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,31 +10,29 @@ class Post extends BaseModel {
         return self::queryAndCollect('SELECT * FROM BlogPost;');
     }
     
-    public static function allInBlog($blogId) {
-        return self::queryAndCollect('SELECT * FROM BlogPost WHERE blogId = ?', array($blogId));
+    public static function allInBlog($blog_id) {
+        return self::queryAndCollect('SELECT * FROM BlogPost WHERE blog_id = ?', array($blog_id));
     }
     
     public static function allByUser($userId) {
         return self::queryAndCollect('SELECT * FROM BlogPost WHERE author = ?;', array($userId));
     }
     
-    public static function find($postId) {   
-        $list = self::queryAndCollect('SELECT * FROM BlogPost WHERE postId = ? LIMIT 1;', array($postId));
-        if (isset($list[0])) return $list[0];
+    public static function find($post_id) {   
+        $list = self::queryAndCollect('SELECT * FROM BlogPost WHERE post_id = ? LIMIT 1;', array($post_id));
+        if (empty($list)) return $list[0];
         return null;
     }
     
    public static function queryAndCollect($q, $args = array()) {       
-        $query = DB::connection()->prepare($q);
-        $query->execute($args);
-        
+        $query = DB::query($q, $args);
         $rows = $query->fetchAll();
         $posts = array();
         
         foreach ($rows as $row) {
             $posts[] = new Post(array(
-                'postId' => $row['postid'],
-                'blogId' => $row['blogid'],
+                'post_id' => $row['post_id'],
+                'blog_id' => $row['blog_id'],
                 'author' => $row['author'],
                 'title' => $row['title'],
                 'content' => $row['content']
@@ -45,10 +43,10 @@ class Post extends BaseModel {
     }
     
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO BlogPost (blogId, author, title, content) VALUES (:blogId, :author, :title, :content) RETURNING postId');
-        $query->execute(array('blogId' => $this->blogId, 'author' => $this->author, 'title' => $this->title, 'content' => $this->content));
+        $query = DB::connection()->prepare('INSERT INTO BlogPost (blog_id, author, title, content) VALUES (:blog_id, :author, :title, :content) RETURNING post_id', 
+            array('blog_id' => $this->blog_id, 'author' => $this->author, 'title' => $this->title, 'content' => $this->content));
         $row = $query->fetch();
-        $this->postId = $row['postId'];
+        $this->post_id = $row['post_id'];
     }
     
 }

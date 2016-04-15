@@ -1,6 +1,6 @@
 <?php
 class Blogger extends BaseModel {
-    public $userId, $username, $password, $joinDate, $profileDescription;
+    public $user_id, $username, $password, $join_date, $profile_description;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,37 +10,36 @@ class Blogger extends BaseModel {
         return self::queryAndCollect('SELECT * FROM Blogger;');
     }
     
-    public static function find($userId) {
-        return self::queryAndCollect('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;', $userId);
+    public static function find($user_id) {
+        return self::queryAndCollect('SELECT * FROM Blogger WHERE user_id = ? LIMIT 1;', $user_id);
     }
     
-    private static function queryAndCollect($q) {
-        $query = DB::connection()->prepare($q);
-        $query->execute(func_get_args());
-        
+    private static function queryAndCollect($q, $args = array()) {
+        $query = DB::query($q, $args);        
         $rows = $query->fetchAll();
         $bloggers = array();
         
         foreach ($rows as $row) {
             $bloggers[] = new Blogger(array(
-                'userId' => $row['userId'],
+                'user_id' => $row['user_id'],
                 'username' => $row['username'],
                 'password' => $row['password'],
-                'joinDate' => $row['joinDate'],
-                'profileDescription' => $row['profileDescription']
+                'join_date' => $row['join_date'],
+                'profile_description' => $row['profile_description']
             ));
         }
         
         return $bloggers;
     }
     
-    //$joinDate not valid after save
+    //$join_date not valid after save
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Blogger (username, email, password, profileDescription) 
-            VALUES (:username, :email, :password, :profileDescription) RETURNING userId');
-        $query->execute(array('username' => $this->username, 'email' => $this->email, 'password' => $this->password, 'profileDescription' => $this->profileDescription);
+        $query = DB::query('INSERT INTO Blogger (username, email, password, profile_description) 
+            VALUES (:username, :email, :password, :profile_description) RETURNING user_id',
+            array('username' => $this->username, 'email' => $this->email, 'password' => $this->password, 
+            'profile_description' => $this->profile_description));
         $row = $query->fetch();
-        $this->userId = $row['userId'];
+        $this->user_id = $row['user_id'];
     }
     
 }
