@@ -1,6 +1,6 @@
 <?php
 class Comment extends BaseModel {
-    public $comment_id, $post_id, $user_id, $content, $date;
+    public $commentId, $postId, $userId, $content, $date;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,9 +10,14 @@ class Comment extends BaseModel {
         return self::queryAndCollect('SELECT * FROM Comment;');
     }
     
-    public static function find($comment_id) {
-        return self::queryAndCollect('SELECT * FROM Comment WHERE comment_id = ? LIMIT 1;', $comment_id);
+    public static function allInPost($postId) {
+        return self::queryAndCollect('SELECT * FROM Comment WHERE postId = ?', $postId);       
+    }
     
+    public static function find($commentId) {
+        $list = self::queryAndCollect('SELECT * FROM Comment WHERE commentId = ? LIMIT 1;', $commentId);
+        if (empty($list)) return NULL;
+        return $list[0];
     }
     
     public static function queryAndCollect($q, $args = array()) {       
@@ -22,9 +27,9 @@ class Comment extends BaseModel {
           
         foreach ($rows as $row) {
             $comments[] = new Comment(array(
-                'comment_id' => $row['comment_id'],
-                'post_id' => $row['post_id'],
-                'user_id' => $row['user_id'],
+                'commentId' => $row['commentid'],
+                'postId' => $row['postid'],
+                'userId' => $row['userid'],
                 'content' => $row['content'],
                 'date' => $row['date']
             ));
@@ -35,11 +40,11 @@ class Comment extends BaseModel {
 
     //date still not valid
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Comment (post_id, user_id, content) 
-            VALUES (:post_id, :user_id, :content) RETURNING comment_id', 
-            array('post_id' => $this->post_id, 'user_id' => $this->user_id, 'content' => $this->content));
+        $query = DB::connection()->prepare('INSERT INTO Comment (postId, userId, content) 
+            VALUES (:postId, :userId, :content) RETURNING commentId', 
+            array('postId' => $this->postId, 'userId' => $this->userId, 'content' => $this->content));
         $row = $query->fetch();
-        $this->comment_id = $row['comment_id'];
+        $this->commentId = $row['commentid'];
     }
     
 }

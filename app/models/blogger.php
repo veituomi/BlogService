@@ -1,6 +1,6 @@
 <?php
 class Blogger extends BaseModel {
-    public $user_id, $username, $password, $join_date, $profile_description;
+    public $userId, $username, $password, $joinDate, $profileDescription;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,9 +10,29 @@ class Blogger extends BaseModel {
         return self::queryAndCollect('SELECT * FROM Blogger;');
     }
     
-    public static function find($user_id) {
-        return self::queryAndCollect('SELECT * FROM Blogger WHERE user_id = ? LIMIT 1;', $user_id);
+    public static function find($userId) {
+        $list = self::queryAndCollect('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;', $userId);
+        if (empty($list)) return NULL;
+        return $list[0];
     }
+    
+    public static function isAdmin($userId) {
+        $list = self::queryAndCollect('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', $userId);
+        if (empty($list)) return false;
+        return true;
+    }
+    
+    public static function getFollowers($userId) {
+        return self::queryAndCollect('SELECT * FROM Blogger b, Follows f WHERE f.followee = ? AND
+            f.follower = b.userId', $userId);
+    }
+    
+    public static function getFollowees($userId) {
+        return self::queryAndCollect('SELECT * FROM Blogger b, Follows f WHERE f.follower = ? AND
+            f.followee = b.userId', $userId);
+    }
+    
+    //getLikedPosts
     
     private static function queryAndCollect($q, $args = array()) {
         $query = DB::query($q, $args);        
@@ -21,25 +41,25 @@ class Blogger extends BaseModel {
         
         foreach ($rows as $row) {
             $bloggers[] = new Blogger(array(
-                'user_id' => $row['user_id'],
+                'userId' => $row['userid'],
                 'username' => $row['username'],
                 'password' => $row['password'],
-                'join_date' => $row['join_date'],
-                'profile_description' => $row['profile_description']
+                'joinDate' => $row['joindate'],
+                'profileDescription' => $row['profiledescription']
             ));
         }
         
         return $bloggers;
     }
     
-    //$join_date not valid after save
+    //$joinDate not valid after save
     public function save() {
-        $query = DB::query('INSERT INTO Blogger (username, email, password, profile_description) 
-            VALUES (:username, :email, :password, :profile_description) RETURNING user_id',
+        $query = DB::query('INSERT INTO Blogger (username, email, password, profileDescription) 
+            VALUES (:username, :email, :password, :profileDescription) RETURNING userId',
             array('username' => $this->username, 'email' => $this->email, 'password' => $this->password, 
-            'profile_description' => $this->profile_description));
+            'profileDescription' => $this->profileDescription));
         $row = $query->fetch();
-        $this->user_id = $row['user_id'];
+        $this->userId = $row['userid'];
     }
     
 }

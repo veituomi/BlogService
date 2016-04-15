@@ -1,6 +1,6 @@
 <?php
 class Blog extends BaseModel {
-    public $blog_id, $name, $description;
+    public $blogId, $name, $description;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,14 +10,19 @@ class Blog extends BaseModel {
         return self::queryAndCollect('SELECT * FROM Blog;');
     }
     
-    public static function find($blog_id) {
-        $list = self::queryAndCollect('SELECT * FROM Blog WHERE blog_id = ? LIMIT 1;', array($blog_id));
-        if (empty($list)) return $list[0];
-        return null;
+    public static function allByUser($userId) {
+        return self::queryAndCollection('SELECT b.blogId, b.name, b.description FROM Blog b, BlogOwner bo, 
+            Blogger bl WHERE bl.userId = ? AND bo.userId = bl.userId AND bo.blogId = b.blogId');
     }
     
-    public static function destroy($blog_id) {
-        DB::query('DELETE FROM Blog WHERE blog_id = ?;', array($blog_id));
+    public static function find($blogId) {
+        $list = self::queryAndCollect('SELECT * FROM Blog WHERE blogId = ? LIMIT 1;', array($blogId));
+        if (empty($list)) return NULL;
+        return $list[0];
+    }
+    
+    public static function destroy($blogId) {
+        DB::query('DELETE FROM Blog WHERE blogId = ?;', array($blogId));
     }
     
     private static function queryAndCollect($q, $args = array()) {
@@ -27,7 +32,7 @@ class Blog extends BaseModel {
         
         foreach ($rows as $row) {
             $blogs[] = new Blog(array(
-                'blog_id' => $row['blog_id'],
+                'blogId' => $row['blogid'],
                 'name' => $row['name'],
                 'description' => $row['description']
             ));
@@ -37,10 +42,10 @@ class Blog extends BaseModel {
     }
     
     public function save() {
-        $query = DB::query('INSERT INTO Blog (name, description) VALUES (:name, :description) RETURNING blog_id',
+        $query = DB::query('INSERT INTO Blog (name, description) VALUES (:name, :description) RETURNING blogId',
             array('name' => $this->name, 'description' => $this->description));
         $row = $query->fetch();
-        $this->blog_id = $row['blog_id'];
+        $this->blogId = $row['blogid'];
     }
     
 }
