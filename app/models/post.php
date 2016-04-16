@@ -50,7 +50,7 @@ class Post extends BaseModel {
     }
     
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO BlogPost (blogId, author, title, content) VALUES (:blogId, :author, :title, :content) RETURNING postId', 
+        $query = DB::query('INSERT INTO BlogPost (blogId, author, title, content) VALUES (:blogId, :author, :title, :content) RETURNING postId', 
             array('blogId' => $this->blogId, 'author' => $this->author, 'title' => $this->title, 'content' => $this->content));
         $row = $query->fetch();
         $this->postId = $row['postid'];

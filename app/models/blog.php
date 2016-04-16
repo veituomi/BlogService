@@ -4,6 +4,7 @@ class Blog extends BaseModel {
     
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array();
     }
     
     public static function all() {
@@ -19,6 +20,11 @@ class Blog extends BaseModel {
         $list = self::queryAndCollect('SELECT * FROM Blog WHERE blogId = ? LIMIT 1;', array($blogId));
         if (empty($list)) return NULL;
         return $list[0];
+    }
+    
+    public function update() {
+        DB::query('UPDATE Blog SET name = ?, description = ? WHERE blogId = ?',
+            array($this->name, $this->description, $this->blogId));
     }
     
     public static function destroy($blogId) {

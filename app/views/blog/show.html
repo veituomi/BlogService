@@ -7,9 +7,14 @@
     <a href="{{base_path}}/blog/{{blog.blogId}}/edit" class="btn btn-default">Muokkaa</a>
   </p>
   
+  <form action="{{base_path}}/post/new" method="post">
+    <input type="hidden" name="blogId" value="{{blog.blogId}}" />
+    <input type="submit" value="Uusi kirjoitus" class="btn btn-default" />
+  </form>
+  
   {{blog.description}}
   <!-- Description, statistics -->
   
-  {% include "post_list.html" %}
+  {% include "post/list.html" %}
   
 {% endblock %}

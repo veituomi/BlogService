@@ -6,10 +6,15 @@
     <input type="submit" class="btn btn-danger" value="Poista blogi" />
   </form>
   
-  <form>
+  <form method="post">
+    <input type="hidden" class="form-control" name="blogid" value="{{blog.blogId}}">
     <div class="form-group">
       <label>Kuvaus</label>
-      <input type="text" class="form-control" value="{{blog.description}}">
+      <input type="text" class="form-control" name="name" value="{{blog.name}}">
+    </div>
+    <div class="form-group">
+      <label>Kuvaus</label>
+      <input type="text" class="form-control" name="description" value="{{blog.description}}">
     </div>
 
     <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>

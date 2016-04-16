@@ -32,12 +32,24 @@
     BlogController::edit($id);
   });
   
+  $routes->post('/blog/:id/edit', function($id) {
+    BlogController::update($id);
+  });
+  
   $routes->post('/blog/:id/destroy', function($id) {
     BlogController::destroy($id);
   });
   
   $routes->get('/post', function() {
     PostController::index();
+  });
+  
+  $routes->post('/post', function() {
+    PostController::store();
+  });
+  
+  $routes->post('/post/new', function() {
+    PostController::create();
   });
   
   // All posts related to a certain blog
