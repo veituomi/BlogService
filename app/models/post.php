@@ -4,6 +4,7 @@ class Post extends BaseModel {
     
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array();
     }  
     
     public static function all() {
@@ -54,6 +55,10 @@ class Post extends BaseModel {
             array('blogId' => $this->blogId, 'author' => $this->author, 'title' => $this->title, 'content' => $this->content));
         $row = $query->fetch();
         $this->postId = $row['postid'];
+    }
+    
+    public static function destroy($postId) {
+        DB::query('DELETE FROM BlogPost WHERE postId = ?;', array($postId));
     }
     
 }

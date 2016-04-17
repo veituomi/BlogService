@@ -81,6 +81,10 @@
     PostController::edit($id);
   });
   
+  $routes->post('/post/:id/destroy', function($id) {
+    PostController::destroy($id);
+  });
+  
   $routes->get('/user', function() {
     UserController::index();
   });

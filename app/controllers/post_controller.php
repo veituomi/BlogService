@@ -47,8 +47,9 @@ class PostController extends BaseController{
     }
     
     public static function destroy($id) {
+        $post = Post::find($id);
         Post::destroy($id);
-        Redirect::to('/post');
+        Redirect::to('/blog/' . $post->blogId, array('message' => 'Kirjoitus on tuhottu!'));
     }
     
     public static function store() {
@@ -60,9 +61,14 @@ class PostController extends BaseController{
                 'content' => $params['content']
         ));
         
-        $post->save();
+        $errors = $post->errors();
         
-        Redirect::to('/post/' . $post->postId);
+        if (count($errors) == 0) {
+            $post->save();
+            Redirect::to('/post/' . $post->postId, array('message' => 'Uusi kirjoitus on rekisteröity järjestelmään onnistuneesti!'));
+        } else {
+            Redirect::to('/post/' . $post->postId, array('errors' => $errors));
+        }
     }
 
 }

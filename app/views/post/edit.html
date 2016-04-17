@@ -2,7 +2,9 @@
 {% block content %}
   <h1>Muokkaa kirjoitusta</h1>
   
-  <button class="btn btn-danger">Poista</button>
+  <form action="{{base_path}}/post/{{post.postId}}/destroy" method="post">
+    <input type="submit" class="btn btn-danger" value="Poista" />
+  </form>
   
   <form>
     <!-- Text field for post title -->

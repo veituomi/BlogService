@@ -4,7 +4,7 @@ class Comment extends BaseModel {
     
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array();
+        $this->validators = array('validate_content', 'validate_login');
     }
     
     public static function all() {
@@ -57,4 +57,23 @@ class Comment extends BaseModel {
         DB::query('DELETE FROM Comment WHERE commentId = ?;', array($commentId));
     }
     
+    // Validators
+    
+    public function validate_content(){
+        $errors = array();
+        if($this->content == '' || $this->content == null){
+            $errors[] = 'Sisältö puuttuu!';
+        }
+
+        return $errors;
+    }
+    
+    public function validate_login(){
+        $errors = array();
+        if($this->userId == null){
+            $errors[] = 'Kirjaudu ensin sisään!';
+        }
+
+        return $errors;
+    }
 }

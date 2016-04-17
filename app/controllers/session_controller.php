@@ -10,7 +10,7 @@
         $user = Blogger::authenticate($params['username'], $params['password']);
 
         if(!$user){
-            View::make('login.html', array('error' => 'Wrong password', 'username' => $params['username']));
+            View::make('login.html', array('errors' => array('Virheelliset tunnistetiedot!'), 'username' => $params['username']));
         } else {
             $_SESSION['user'] = $user->userId;
             Redirect::to('/');
@@ -28,16 +28,21 @@
         $password = $params['password']; //crypt($params['password']);
         
         $user = new Blogger(array('username' => $username, 'password' => $password, 'email' => $email));
-            
-        if ($user->save()) {
-            //redirect to change profileDescription
-            Redirect::to('/');
-        } 
+        
+        $errors = $user->errors();
+        
+        if (count($errors) == 0) {
+            if ($user->save()) {
+                //redirect to change profileDescription
+                Redirect::to('/');
+            }
+        } else {
+            Redirect::to('/', array('errors' => $errors));
+        }
     }
     
     public static function handle_logout() {
         unset($_SESSION['user']);
-        
         Redirect::to('/');
     }
 }

@@ -34,14 +34,25 @@ class CommentController extends BaseController{
     
     public static function store() {
         $params = $_POST;
+        $user = BaseController::get_user_logged_in();
+        $userId = null;
+        if ($user != null) {
+            $userId = $user->userId;
+        }
+        
         $comment = new Comment(array(
                 'postId' => $params['postId'],
-                'userId' => 1,
+                'userId' => $userId,
                 'content' => $params['content']
         ));
         
-        $comment->save();
-        Redirect::to('/post/' . $comment->postId);
+        $errors = $comment->errors();
+        
+        if (count($errors) == 0) {
+            $comment->save();
+            Redirect::to('/post/' . $comment->postId, array('message' => 'Kommentti on lisätty!'));
+        } else {
+            Redirect::to('/post/' . $comment->postId, array('errors' => $errors));
+        }
     }
-
 }
