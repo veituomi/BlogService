@@ -24,6 +24,14 @@
     SessionController::handle_register();
   });
   
+  $routes->get('/logout', function(){
+    SessionController::handle_logout();
+  });
+  
+  $routes->get('/blog', function() {
+    BlogController::index();
+  });
+  
   $routes->post('/blog', function() {
     BlogController::store();
   });

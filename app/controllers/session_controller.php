@@ -34,4 +34,10 @@
             Redirect::to('/');
         } 
     }
-  }
+    
+    public static function handle_logout() {
+        unset($_SESSION['user']);
+        
+        Redirect::to('/');
+    }
+}

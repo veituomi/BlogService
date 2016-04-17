@@ -29,18 +29,21 @@
                     <input type="text" class="form-control" placeholder="Haku">
                 </div>
             </li>
-            <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
-            <li><a href="{{base_path}}/register">Rekisteröi</a></li>
-            <!-- Show the one above or below depending on the login status -->
+            {% if user_logged_in %}
             <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                Käyttäjän nimi <span class="caret"></span>
+                {{user_logged_in.username}} <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                <li><a href="#">Asetukset</a>
-                <li><a href="#">Kirjaudu ulos</a></li>
+                <li><a href="{{base_path}}/user/{{user_logged_in.userId}}">Oma sivu</a>
+                <li><a href="{{base_path}}/user/{{user_logged_in.userId}}/edit">Asetukset</a>
+                <li><a href="{{base_path}}/logout">Kirjaudu ulos</a></li>
                 </ul>
             </li>
+            {% else %}
+            <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
+            <li><a href="{{base_path}}/register">Rekisteröi</a></li>
+            {% endif %}
         </ul>
     </div>
     </div>
