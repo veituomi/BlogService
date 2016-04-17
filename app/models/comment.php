@@ -4,6 +4,7 @@ class Comment extends BaseModel {
     
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array();
     }
     
     public static function all() {
@@ -11,11 +12,11 @@ class Comment extends BaseModel {
     }
     
     public static function allInPost($postId) {
-        return self::queryAndCollect('SELECT * FROM Comment WHERE postId = ?', $postId);       
+        return self::queryAndCollect('SELECT * FROM Comment WHERE postId = ?', array($postId));       
     }
     
     public static function find($commentId) {
-        $list = self::queryAndCollect('SELECT * FROM Comment WHERE commentId = ? LIMIT 1;', $commentId);
+        $list = self::queryAndCollect('SELECT * FROM Comment WHERE commentId = ? LIMIT 1;', array($commentId));
         if (empty($list)) return NULL;
         return $list[0];
     }
@@ -37,14 +38,23 @@ class Comment extends BaseModel {
         
         return $comments;
     }
+    
+    public function update() {
+        DB::query('UPDATE Comment SET content = ? WHERE commentId = ?',
+            array($this->content, $this->commentId));
+    }
 
     //date still not valid
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Comment (postId, userId, content) 
+        $query = DB::query('INSERT INTO Comment (postId, userId, content) 
             VALUES (:postId, :userId, :content) RETURNING commentId', 
             array('postId' => $this->postId, 'userId' => $this->userId, 'content' => $this->content));
         $row = $query->fetch();
         $this->commentId = $row['commentid'];
+    }
+    
+    public static function destroy($commentId) {
+        DB::query('DELETE FROM Comment WHERE commentId = ?;', array($commentId));
     }
     
 }

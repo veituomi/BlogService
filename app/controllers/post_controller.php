@@ -14,7 +14,8 @@ class PostController extends BaseController{
     
     public static function show($postId) {
         $post = Post::find($postId);
-   	    View::make('post/show.html', array('post' => $post));
+        $comments = Comment::allInPost($postId);
+   	    View::make('post/show.html', array('post' => $post, 'comments' => $comments));
     }
     
     public static function create() {

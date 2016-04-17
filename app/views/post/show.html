@@ -12,9 +12,9 @@
     {{post.content}}
   </div>
   
-  <div>
-    Kommentit
-  </div>
+  {% include 'comment/list.html' %}
+  
+  {% include 'comment/create.html' %}
   
   
 {% endblock %}

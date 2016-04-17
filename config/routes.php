@@ -76,3 +76,19 @@
   $routes->get('/user/:id/edit', function($id) {
     UserController::edit($id);
   });
+  
+  $routes->post('/comment', function() {
+     CommentController::store(); 
+  });
+  
+  $routes->post('/comment/:id/destroy', function($id) {
+     CommentController::destroy($id); 
+  });
+  
+  $routes->get('/comment/:id/edit', function($id) {
+    CommentController::edit($id);
+  });
+
+  $routes->post('/comment/:id/edit', function($id) {
+    CommentController::update($id);
+  });

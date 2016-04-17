@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa kommenttia</h1>
+  
+  <form action="{{base_path}}/comment/{{comment.commentId}}/destroy" method="post">
+    <input type="submit" class="btn btn-danger" value="Poista kommentti" />
+  </form>
+  
+  <form method="post">
+    <input type="hidden" class="form-control" name="commentId" value="{{comment.commentId}}">
+    <input type="hidden" class="form-control" name="postId" value="{{comment.postId}}">
+    <input type="hidden" class="form-control" name="userId" value="{{comment.userId}}">
+    <input type="hidden" class="form-control" name="date" value="{{comment.date}}">
+    <div class="form-group">
+      <label>Kommentti</label>
+      <input type="text" class="form-control" name="content" value="{{comment.content}}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Muuta</button>
+  </form>
+{% endblock %}

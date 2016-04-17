@@ -1,0 +1,12 @@
+<h2>Uusi kommentti</h2>
+
+<form action="{{base_path}}/comment" method="post">
+    <input type="hidden" class="form-control" name="postId" value="{{post.postId}}">
+
+    <div class="form-group">
+        <label>Sisältö</label>
+        <input type="text" class="form-control" name="content" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lähetä</button>
+</form>
