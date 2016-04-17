@@ -8,12 +8,20 @@
     HomeController::sandbox();
   });
 
-  $routes->get('/login', function() {
-    SessionController::index();
+  $routes->get('/login', function(){
+    SessionController::login();
   });
-
-  $routes->get('/blog', function() {
-    BlogController::index();
+  
+  $routes->post('/login', function(){
+    SessionController::handle_login();
+  });
+  
+  $routes->get('/register', function(){
+    SessionController::register();
+  });
+  
+  $routes->post('/register', function(){
+    SessionController::handle_register();
   });
   
   $routes->post('/blog', function() {
@@ -76,7 +84,7 @@
   $routes->get('/user/:id/edit', function($id) {
     UserController::edit($id);
   });
-  
+
   $routes->post('/comment', function() {
      CommentController::store(); 
   });

@@ -41,7 +41,6 @@ class CommentController extends BaseController{
         ));
         
         $comment->save();
-        
         Redirect::to('/post/' . $comment->postId);
     }
 

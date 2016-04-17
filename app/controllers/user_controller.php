@@ -16,5 +16,5 @@ class UserController extends BaseController{
         $blogger = Blogger::find($id);
         View::make('user/edit.html', array('blogger' => $blogger));
     }
-
+   
 }

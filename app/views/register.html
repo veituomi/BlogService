@@ -2,10 +2,15 @@
 
 {% block content %}
   <div class="page-header">
-    <h1>Sisäänkirjautumislomake</h1>
+    <h1>Rekisteröityminen</h1>
   </div>
   
   <form method="post">
+     <div class="form-group">
+      <label>Sähköposti</label>
+      <input type="text" name="email" class="form-control">
+    </div>
+    
     <div class="form-group">
       <label>Käyttäjätunnus</label>
       <input type="text" name="username" class="form-control">
@@ -16,6 +21,6 @@
       <input type="password" name="password" class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+    <button type="submit" class="btn btn-primary">Rekisteröi tunnus</button>
   </form>
 {% endblock %}

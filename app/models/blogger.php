@@ -1,6 +1,6 @@
 <?php
 class Blogger extends BaseModel {
-    public $userId, $username, $password, $joinDate, $profileDescription;
+    public $userId, $username, $password, $email, $joinDate, $profileDescription;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -11,14 +11,14 @@ class Blogger extends BaseModel {
     }
     
     public static function find($userId) {
-        $list = self::queryAndCollect('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;', array($userId));
-        if (empty($list)) return NULL;
-        return $list[0];
+        $user = self::queryAndCollect('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;', array($userId));
+        if (empty($user)) return NULL;
+        return $user[0];
     }
     
     public static function isAdmin($userId) {
-        $list = self::queryAndCollect('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', array($userId));
-        if (empty($list)) return false;
+        $user = self::queryAndCollect('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', array($userId));
+        if (empty($user)) return false;
         return true;
     }
     
@@ -34,6 +34,14 @@ class Blogger extends BaseModel {
     
     //getLikedPosts
     
+    public static function authenticate($username, $password) {
+        $user = self::queryAndCollect('SELECT * FROM Blogger WHERE username = ? AND 
+            password = ? LIMIT 1;', array($username, $password));
+        if (empty($user)) return NULL;
+        return $user[0];
+    }
+
+    
     private static function queryAndCollect($q, $args = array()) {
         $query = DB::query($q, $args);        
         $rows = $query->fetchAll();
@@ -44,6 +52,7 @@ class Blogger extends BaseModel {
                 'userId' => $row['userid'],
                 'username' => $row['username'],
                 'password' => $row['password'],
+                'email' => $row['email'],
                 'joinDate' => $row['joindate'],
                 'profileDescription' => $row['profiledescription']
             ));
@@ -59,7 +68,14 @@ class Blogger extends BaseModel {
             array('username' => $this->username, 'email' => $this->email, 'password' => $this->password, 
             'profileDescription' => $this->profileDescription));
         $row = $query->fetch();
-        $this->userId = $row['userid'];
+        $userId = $row['userid'];
+        
+        if ($userId) {
+            $this->userId = $userId;
+            return true;
+        }
+        
+        return false;
     }
     
 }
