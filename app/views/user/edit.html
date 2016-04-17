@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Käyttäjän x sivu</h1>
+  <h1>{{blogger.username}}</h1>
   
   <button class="btn btn-danger">Poista käyttäjä</button>
   
@@ -22,7 +22,7 @@
     
     <div class="form-group">
       <label>Käyttäjän kuvaus</label>
-      <input type="text" class="form-control">
+      <input type="text" value="{{blogger.profileDescription}}" class="form-control">
     </div>
 
     <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>

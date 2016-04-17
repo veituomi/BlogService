@@ -11,25 +11,25 @@ class Blogger extends BaseModel {
     }
     
     public static function find($userId) {
-        $list = self::queryAndCollect('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;', $userId);
+        $list = self::queryAndCollect('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;', array($userId));
         if (empty($list)) return NULL;
         return $list[0];
     }
     
     public static function isAdmin($userId) {
-        $list = self::queryAndCollect('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', $userId);
+        $list = self::queryAndCollect('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', array($userId));
         if (empty($list)) return false;
         return true;
     }
     
     public static function getFollowers($userId) {
         return self::queryAndCollect('SELECT * FROM Blogger b, Follows f WHERE f.followee = ? AND
-            f.follower = b.userId', $userId);
+            f.follower = b.userId', array($userId));
     }
     
     public static function getFollowees($userId) {
         return self::queryAndCollect('SELECT * FROM Blogger b, Follows f WHERE f.follower = ? AND
-            f.followee = b.userId', $userId);
+            f.followee = b.userId', array($userId));
     }
     
     //getLikedPosts

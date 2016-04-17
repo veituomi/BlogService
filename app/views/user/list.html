@@ -12,12 +12,13 @@
     </thead>
 
     <tbody>
-      <!-- List users here -->
+      {% for blogger in bloggers %}
       <tr>
-        <td><a href="user/1">Käyttäjän nimi</a></td>
-        <td>1</td>
-        <td>2</td>
+        <td><a href="{{base_path}}/user/{{blogger.userId}}">{{blogger.username}}</a></td>
+        <td>Mitä</td>
+        <td>tähän?</td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 {% endblock %}

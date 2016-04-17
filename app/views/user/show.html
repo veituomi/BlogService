@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Käyttäjän nimi</h1>
+  <h1>{{blogger.username}}</h1>
   
   <!-- For user or admin only -->
   
   <p>
-    <button class="btn btn-default">Muokkaa</button>
-    <button class="btn btn-danger">Poista</button>
+    <a href="{{base_path}}/user/{{blogger.userId}}/edit" class="btn btn-default">Muokkaa tai poista</a>
   </p>
   
 

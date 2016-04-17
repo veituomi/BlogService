@@ -17,6 +17,7 @@ INSERT INTO BlogOwner (userId, blogId) VALUES (2, 3);
 
 -- Create a post for the blog
 INSERT INTO BlogPost (blogId, author, title, content) VALUES (1, 1, 'Otsikko', 'Kirjoituksen sisältö');
+INSERT INTO BlogPost (blogId, author, title, content) VALUES (1, 1, 'Miksi elää kun voi pelata?', 'Gurulaan on nyt tuotu pino uusia lautapelejä.');
 INSERT INTO BlogPost (blogId, author, title, content) VALUES (2, 2, 'Elämä', 'Kirjoituksen sisältö');
 INSERT INTO BlogPost (blogId, author, title, content) VALUES (3, 3, 'Hyvä palvelu', 'Kirjoituksen sisältö');
 INSERT INTO BlogPost (blogId, author, title, content) VALUES (2, 2, 'Loistavaa', 'Kirjoituksen sisältö');
