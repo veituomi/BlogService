@@ -36,3 +36,10 @@ Links to view designs:
 * [User listing](https://veituomi.users.cs.helsinki.fi/BlogService/user)
 * [Single user view](https://veituomi.users.cs.helsinki.fi/BlogService/user/1)
 * [User editing](https://veituomi.users.cs.helsinki.fi/BlogService/user/1/edit)
+
+Test credentials:
+
+|username|password|
+|--------|:------:|
+|admin   |admin   |
+|user    |password|
