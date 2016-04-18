@@ -58,7 +58,8 @@ class Post extends BaseModel {
     }
     
     public static function destroy($postId) {
-        DB::query('DELETE FROM BlogPost WHERE postId = ?;', array($postId));
+        DB::query('DELETE FROM Comment WHERE postId = ?;', array($postId));
+        DB::query('DELETE FROM BlogPost WHERE postId = ?;', array($postId)); //must delete TagCloud/Likes linked with these posts?
     }
-    
+
 }

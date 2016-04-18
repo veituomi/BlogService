@@ -28,12 +28,11 @@ class PostController extends BaseController{
     }
     
     public static function update($id){
-        $params = $_POST;
         $post = new Post(array(
-                'postId' => $params['postId'],
-                'author' => $params['author'],
-                'title' => $params['title'],
-                'content' => $params['content']
+                'postId' => $_POST['postId'],
+                'author' => $_POST['author'],
+                'title' => $_POST['title'],
+                'content' => $_POST['content']
         ));
         
         $errors = $post->errors();
@@ -53,12 +52,16 @@ class PostController extends BaseController{
     }
     
     public static function store() {
-        $params = $_POST;
+        if (empty($_POST['title']) || empty($_POST['content'])) {
+            View::make('post/create.html', array('blogId' => $_POST['blogId'], 'errors' => array('Täytä kaikki kentät ennen lähettämistä!')));
+            return;
+        } 
+
         $post = new Post(array(
-                'blogId' => $params['blogId'],
-                'title' => $params['title'],
-                'author' => 1,                      // This should match the logged user
-                'content' => $params['content']
+                'blogId' => $_POST['blogId'],
+                'title' => $_POST['title'],
+                'author' => $_SESSION['user'],
+                'content' => $_POST['content']
         ));
         
         $errors = $post->errors();

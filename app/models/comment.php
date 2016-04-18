@@ -58,10 +58,9 @@ class Comment extends BaseModel {
     }
     
     // Validators
-    
     public function validate_content(){
         $errors = array();
-        if($this->content == '' || $this->content == null){
+        if(empty($this->content)){
             $errors[] = 'Sisältö puuttuu!';
         }
 

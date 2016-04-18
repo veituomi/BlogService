@@ -1,6 +1,6 @@
 -- Create two users
 INSERT INTO Blogger (username, email, password) VALUES ('admin', 'admin@admin.com', 'admin');
-INSERT INTO Blogger (username, email, password) VALUES ('sekakäyttäjä', 'user@mail.com', 'salasana');
+INSERT INTO Blogger (username, email, password) VALUES ('user', 'user@mail.com', 'password');
 INSERT INTO Blogger (username, email, password) VALUES ('trolli', 'trolli@mail.com', 'password');
 
 -- Grant admin rights for the first user

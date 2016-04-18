@@ -23,11 +23,10 @@ class BlogController extends BaseController{
     }
     
     public static function update($id){
-        $params = $_POST;
         $blog = new Blog(array(
-                'blogId' => $params['blogid'],
-                'name' => $params['name'],
-                'description' => $params['description']
+                'blogId' => $_POST['blogid'],
+                'name' => $_POST['name'],
+                'description' => $_POST['description']
         ));
         
         $errors = $blog->errors();
@@ -47,10 +46,14 @@ class BlogController extends BaseController{
     }
     
     public static function store() {
-        $params = $_POST;
+        if (empty($_POST['name'])) {
+            Redirect::to('/blog/new', array('errors' => array('Anna blogille nimi!')));
+            return;
+        }
+        
         $blog = new Blog(array(
-                'name' => $params['name'],
-                'description' => $params['description']
+                'name' => $_POST['name'],
+                'description' => $_POST['description']
         ));
         
         $blog->save();    

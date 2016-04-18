@@ -4,7 +4,7 @@ class Blogger extends BaseModel {
     
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array();
+        $this->validators = array('validate_content');
     }
     
     public static function all() {
@@ -69,14 +69,22 @@ class Blogger extends BaseModel {
             array('username' => $this->username, 'email' => $this->email, 'password' => $this->password, 
             'profileDescription' => $this->profileDescription));
         $row = $query->fetch();
-        $userId = $row['userid'];
+        $this->userId = $row['userid'];
+    }
+    
+    // Validator
+    public function validate_content(){
+        $errors = array();
         
-        if ($userId) {
-            $this->userId = $userId;
-            return true;
+        if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)){
+            $errors[] = 'Käytä validia sähköpostia!';
         }
         
-        return false;
+        if (strlen($this->password) < 6) {
+            $errors[] = 'Käytä salasanassa vähintään kuusi merkkiä!';
+        }
+
+        return $errors;
     }
     
 }
