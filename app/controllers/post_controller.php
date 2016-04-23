@@ -15,7 +15,11 @@ class PostController extends BaseController{
     public static function show($postId) {
         $post = Post::find($postId);
         $comments = Comment::allInPost($postId);
-   	    View::make('post/show.html', array('post' => $post, 'comments' => $comments));
+        
+        $like = new Likes(array('userId' => BaseController::get_user_id_logged_in(), 'postId' => $postId));
+        $liked = $like->find() != null;
+        
+   	    View::make('post/show.html', array('post' => $post, 'comments' => $comments, 'liked' => $liked));
     }
     
     public static function create() {

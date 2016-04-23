@@ -9,7 +9,7 @@
         $user = Blogger::authenticate($_POST['username'], $_POST['password']);
 
         if(!$user){
-            View::make('login.html', array('errors' => array('Virheelliset tunnistetiedot!'), 'username' => $params['username']));
+            View::make('login.html', array('errors' => array('Virheelliset tunnistetiedot!'), 'username' => $_POST['username']));
         } else {
             $_SESSION['user'] = $user->userId;
             Redirect::to('/');
