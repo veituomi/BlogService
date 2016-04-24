@@ -1,3 +1,4 @@
+{% if user_logged_in %}
 <a href="{{base_path}}/post/{{post.postId}}/like">
 {% if liked %}
 Älä tykkääkään
@@ -5,3 +6,4 @@
 Tykkää
 {% endif %}
 </a>
+{% endif %}
