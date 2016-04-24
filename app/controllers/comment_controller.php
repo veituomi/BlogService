@@ -7,22 +7,21 @@ class CommentController extends BaseController{
     }
     
     public static function update($id){
-        $params = $_POST;
         $comment = new Comment(array(
-                'commentId' => $params['commentId'],
-                'postId' => $params['postId'],
-                'userId' => $params['userId'],
-                'content' => $params['content'],
-                'date' => $params['date']
+                'commentId' => $_POST['commentId'],
+                'postId' => $_POST['postId'],
+                'userId' => $_POST['userId'],
+                'content' => trim($_POST['content']),
+                'date' => $_POST['date'] //hmm
         ));
         
         $errors = $comment->errors();
 
-        if (!empty($errors)){
-            View::make('comment/edit.html', array('errors' => $errors));
-        } else {
+        if (empty($errors)){
             $comment->update();
             Redirect::to('/post/' . $comment->postId, array('message' => 'Kommenttia on muokattu!'));
+        } else {
+            View::make('comment/edit.html', array('errors' => $errors));
         }
     }
     
@@ -33,22 +32,17 @@ class CommentController extends BaseController{
     }
     
     public static function store() {
-        $params = $_POST;
-        $user = BaseController::get_user_logged_in();
-        $userId = null;
-        if ($user != null) {
-            $userId = $user->userId;
-        }
+        $userId = BaseController::get_user_logged_in();
         
         $comment = new Comment(array(
-                'postId' => $params['postId'],
+                'postId' => $_POST['postId'],
                 'userId' => $userId,
-                'content' => $params['content']
+                'content' => trim($_POST['content'])
         ));
         
         $errors = $comment->errors();
         
-        if (count($errors) == 0) {
+        if (empty($errors)) {
             $comment->save();
             Redirect::to('/post/' . $comment->postId, array('message' => 'Kommentti on lisätty!'));
         } else {

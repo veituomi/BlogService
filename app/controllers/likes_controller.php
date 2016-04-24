@@ -1,7 +1,7 @@
 <?php
 class LikesController extends BaseController {
     public static function like($postId) {
-        $userId = BaseController::get_user_id_logged_in();
+        $userId = BaseController::get_user_logged_in();
         
         if ($userId == null) {
             Redirect::to('/post/' . $postId, array('errors' => array('Kirjaudu ensin sisään!')));

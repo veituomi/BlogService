@@ -17,6 +17,12 @@ class Blogger extends BaseModel {
         return $user[0];
     }
     
+    public static function findByName($username) {
+        $user = self::queryAndCollect('SELECT * FROM Blogger WHERE username = ? LIMIT 1;', array($username));
+        if (empty($user)) return NULL;
+        return $user[0];
+    }
+    
     public static function isAdmin($userId) {
         $user = self::queryAndCollect('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', array($userId));
         if (empty($user)) return false;
@@ -34,15 +40,7 @@ class Blogger extends BaseModel {
     }
     
     //getLikedPosts
-    
-    public static function authenticate($username, $password) {
-        $user = self::queryAndCollect('SELECT * FROM Blogger WHERE username = ? AND 
-            password = ? LIMIT 1;', array($username, $password));
-        if (empty($user)) return NULL;
-        return $user[0];
-    }
 
-    
     private static function queryAndCollect($q, $args = array()) {
         $query = DB::query($q, $args);        
         $rows = $query->fetchAll();
@@ -74,6 +72,10 @@ class Blogger extends BaseModel {
 
     public function validate_content() {
         $errors = array();
+            
+        if (empty($this->username)) {
+            $errors[] = 'Käytä validia käyttäjätunnusta!';
+        }
         
         if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)){
             $errors[] = 'Käytä validia sähköpostia!';

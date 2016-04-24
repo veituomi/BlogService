@@ -25,17 +25,17 @@ class BlogController extends BaseController{
     public static function update($id){
         $blog = new Blog(array(
                 'blogId' => $_POST['blogid'],
-                'name' => $_POST['name'],
-                'description' => $_POST['description']
+                'name' => trim($_POST['name']),
+                'description' => trim($_POST['description'])
         ));
         
         $errors = $blog->errors();
 
         if (!empty($errors)){
-            View::make('blog/edit.html', array('errors' => $errors));
-        } else {
             $blog->update();
             Redirect::to('/blog/' . $blog->blogId, array('message' => 'Blogia on muokattu!'));
+        } else {
+            View::make('blog/edit.html', array('errors' => $errors));
         }
     }
 
@@ -53,7 +53,7 @@ class BlogController extends BaseController{
         
         $errors = $blog->errors();
         
-        if (count($errors) == 0) {    
+        if (empty($errors)) {    
             $blog->save();    
             Redirect::to('/blog/' . $blog->blogId);
         } else {

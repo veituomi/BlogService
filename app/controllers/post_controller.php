@@ -16,7 +16,7 @@ class PostController extends BaseController{
         $post = Post::find($postId);
         $comments = Comment::allInPost($postId);
         
-        $like = new Likes(array('userId' => BaseController::get_user_id_logged_in(), 'postId' => $postId));
+        $like = new Likes(array('userId' => BaseController::get_user_logged_in(), 'postId' => $postId));
         $liked = $like->find() != null;
         
    	    View::make('post/show.html', array('post' => $post, 'comments' => $comments, 'liked' => $liked));
@@ -35,17 +35,17 @@ class PostController extends BaseController{
         $post = new Post(array(
                 'postId' => $_POST['postId'],
                 'author' => $_POST['author'],
-                'title' => $_POST['title'],
-                'content' => $_POST['content']
+                'title' => trim($_POST['title']),
+                'content' => trim($_POST['content'])
         ));
         
         $errors = $post->errors();
 
-        if (!empty($errors)) {
-            View::make('post/edit.html', array('errors' => $errors, 'post' => $post));
-        } else {
+        if (empty($errors)) {
             $post->update();
             Redirect::to('/post/' . $post->postId, array('message' => 'Kirjoitusta on muokattu!'));
+        } else {
+            View::make('post/edit.html', array('errors' => $errors, 'post' => $post));
         }
     }
     
@@ -65,7 +65,7 @@ class PostController extends BaseController{
         
         $errors = $post->errors();
         
-        if (count($errors) == 0) {
+        if (empty($errors)) {
             $post->save();
             Redirect::to('/post/' . $post->postId, array('message' => 'Uusi kirjoitus on rekisteröity järjestelmään onnistuneesti!'));
         } else {
