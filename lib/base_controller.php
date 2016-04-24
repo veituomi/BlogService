@@ -1,6 +1,11 @@
 <?php
 
-  class BaseController{
+  class BaseController {
+    public static function get_user_id_logged_in() {
+      if (isset($_SESSION['user'])) return $_SESSION['user'];
+      return NULL;
+    }
+    
     public static function get_user_logged_in() {
       if (!isset($_SESSION['user'])) return NULL;
       return Blogger::find($_SESSION['user']);

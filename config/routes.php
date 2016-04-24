@@ -85,6 +85,10 @@
     PostController::destroy($id);
   });
   
+  $routes->get('/post/:id/like', function($id) {
+    LikesController::like($id);
+  });
+  
   $routes->get('/user', function() {
     UserController::index();
   });
