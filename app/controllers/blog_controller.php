@@ -45,19 +45,20 @@ class BlogController extends BaseController{
         Redirect::to('/blog');
     }
     
-    public static function store() {
-        if (empty($_POST['name'])) {
-            Redirect::to('/blog/new', array('errors' => array('Anna blogille nimi!')));
-            return;
-        }
-        
+    public static function store() {     
         $blog = new Blog(array(
-                'name' => $_POST['name'],
-                'description' => $_POST['description']
+                'name' => trim($_POST['name']),
+                'description' => trim($_POST['description'])
         ));
         
-        $blog->save();    
-        Redirect::to('/blog/' . $blog->blogId);
+        $errors = $blog->errors();
+        
+        if (count($errors) == 0) {    
+            $blog->save();    
+            Redirect::to('/blog/' . $blog->blogId);
+        } else {
+            Redirect::to('/blog/new', array('errors' => $errors));
+        }
     }
 
   }

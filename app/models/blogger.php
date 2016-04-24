@@ -71,9 +71,8 @@ class Blogger extends BaseModel {
         $row = $query->fetch();
         $this->userId = $row['userid'];
     }
-    
-    // Validator
-    public function validate_content(){
+
+    public function validate_content() {
         $errors = array();
         
         if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)){

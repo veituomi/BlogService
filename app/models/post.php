@@ -4,7 +4,7 @@ class Post extends BaseModel {
     
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array();
+        $this->validators = array('validate_content');
     }  
     
     public static function all() {
@@ -61,5 +61,19 @@ class Post extends BaseModel {
         DB::query('DELETE FROM Comment WHERE postId = ?;', array($postId));
         DB::query('DELETE FROM BlogPost WHERE postId = ?;', array($postId)); //must delete TagCloud/Likes linked with these posts?
     }
-
+    
+    public function validate_content() {
+        $errors = array();
+        
+        if (empty($this->title)) {
+            $errors[] = 'Lisää kirjoitukseen otsikko!';
+        }
+        
+        if (empty($this->content)) {
+            $errors[] = 'Lisää kirjoitukseen sisältö!';
+        }
+        
+        return $errors;
+    }
+    
 }

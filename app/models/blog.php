@@ -4,7 +4,7 @@ class Blog extends BaseModel {
     
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array();
+        $this->validators = array('validate_content');
     }
     
     public static function all() {
@@ -54,6 +54,20 @@ class Blog extends BaseModel {
             array('name' => $this->name, 'description' => $this->description));
         $row = $query->fetch();
         $this->blogId = $row['blogid'];
+    }
+    
+    public function validate_content() {
+        $errors = array();
+        
+        if (empty($this->name)) {
+            $errors[] = 'Anna blogille nimi!';
+        }
+        
+        if (empty($this->description)) {
+            $errors[] = 'Anna blogille kuvaus!';
+        }
+        
+        return $errors;
     }
     
 }

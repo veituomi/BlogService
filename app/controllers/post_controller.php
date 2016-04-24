@@ -52,16 +52,11 @@ class PostController extends BaseController{
     }
     
     public static function store() {
-        if (empty($_POST['title']) || empty($_POST['content'])) {
-            View::make('post/create.html', array('blogId' => $_POST['blogId'], 'errors' => array('Täytä kaikki kentät ennen lähettämistä!')));
-            return;
-        } 
-
         $post = new Post(array(
                 'blogId' => $_POST['blogId'],
-                'title' => $_POST['title'],
+                'title' => trim($_POST['title']),
                 'author' => $_SESSION['user'],
-                'content' => $_POST['content']
+                'content' => trim($_POST['content'])
         ));
         
         $errors = $post->errors();
@@ -70,7 +65,8 @@ class PostController extends BaseController{
             $post->save();
             Redirect::to('/post/' . $post->postId, array('message' => 'Uusi kirjoitus on rekisteröity järjestelmään onnistuneesti!'));
         } else {
-            Redirect::to('/post/' . $post->postId, array('errors' => $errors));
+            View::make('post/create.html', array('blogId' => $_POST['blogId'], 'errors' => $errors));
+            //Redirect::to('/post/' . $post->postId, array('errors' => $errors));
         }
     }
 
