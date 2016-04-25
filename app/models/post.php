@@ -8,7 +8,7 @@ class Post extends BaseModel {
     }
     
     public static function canEdit($postId) {
-        if (empty($_SESSION['user'])) return false;
+        if (!isset($_SESSION['user'])) return false;
         $query = DB::query('SELECT * FROM BlogPost WHERE postId = ? AND author = ? LIMIT 1;',
             array($postId, $_SESSION['user']));
         if ($query->fetch()) return true;
@@ -69,8 +69,9 @@ class Post extends BaseModel {
         $this->postId = $row['postid'];
     }
     
-    public static function update($id){
-        // TODO
+    public function update() {
+        DB::query('UPDATE BlogPost SET author = ?, title = ?, content = ? WHERE postId = ?',
+            array($this->author, $this->title, $this->content, $this->postId));
     }
     
     public static function destroy($postId) {

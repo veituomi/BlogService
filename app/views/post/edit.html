@@ -19,6 +19,10 @@
       <input type="text" class="form-control" name="content" value="{{post.content}}">
     </div>
 
+    {% if can_edit %}
     <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>
+    {% else %}
+    Et voi muokata tätä.
+    {% endif %}
   </form>
 {% endblock %}

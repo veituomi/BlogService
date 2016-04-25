@@ -11,7 +11,7 @@ class BlogController extends BaseController{
         $blog = Blog::find($id);
         $posts = Post::allInBlog($id);
    	    View::make('blog/show.html', array('blog' => $blog, 'posts' => $posts,
-           'can_destroy' => Blog::canDestroy($blog->blogId)));
+           'can_destroy' => Blog::canDestroy($blog->blogId), 'can_edit' => Blog::canEdit($blog->blogId)));
     }
     
     public static function edit($id) {
@@ -38,7 +38,7 @@ class BlogController extends BaseController{
         
         $errors = $blog->errors();
 
-        if (count($errors) == 0) { // !empty($errors) didn't work
+        if (empty($errors)) {
             $blog->update();
             Redirect::to('/blog/' . $blog->blogId, array('message' => 'Blogia on muokattu!'));
         } else {
@@ -57,7 +57,7 @@ class BlogController extends BaseController{
         Redirect::to('/blog');
     }
     
-    public static function store() {     
+    public static function store() {
         $blog = new Blog(array(
                 'name' => trim($_POST['name']),
                 'description' => trim($_POST['description'])

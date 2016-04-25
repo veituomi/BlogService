@@ -19,7 +19,9 @@ class PostController extends BaseController{
         $like = new Likes(array('userId' => BaseController::get_user_logged_in(), 'postId' => $postId));
         $liked = $like->find() != null;
         
-   	    View::make('post/show.html', array('post' => $post, 'comments' => $comments, 'liked' => $liked));
+   	    View::make('post/show.html', array('post' => $post, 'comments' => $comments, 'liked' => $liked,
+           'can_destroy' => Post::canDestroy($post->postId),
+           'can_edit' => Post::canEdit($post->postId)));
     }
     
     public static function create() {
@@ -28,7 +30,8 @@ class PostController extends BaseController{
     
     public static function edit($postId) {
         $post = Post::find($postId);
-   	    View::make('post/edit.html', array('post' => $post));
+   	    View::make('post/edit.html', array('post' => $post, 'can_destroy' => Post::canDestroy($post->postId),
+           'can_edit' => Post::canEdit($post->postId)));
     }
     
     public static function update($id){
@@ -40,15 +43,13 @@ class PostController extends BaseController{
         ));
         
         if (!Post::canEdit($post->postId)) {
-            Redirect::to('/post/' . $post->blogId, array('errors' => array('Ei ole vaadittavia oikeuksia.')));
+            Redirect::to('/post/' . $post->postId, array('errors' => array('Ei ole vaadittavia oikeuksia.')));
             return;
         }
         
         $errors = $post->errors();
-        
-        Kint::dump($errors);
 
-        if (count($errors) == 0) {
+        if (empty($errors)) {
             $post->update();
             Redirect::to('/post/' . $post->postId, array('message' => 'Kirjoitusta on muokattu!'));
         } else {
@@ -57,6 +58,11 @@ class PostController extends BaseController{
     }
     
     public static function destroy($id) {
+        if (!Post::canDestroy($id)) {
+            Redirect::to('/post/' . $id, array('errors' => array('Ei ole vaadittavia oikeuksia.')));
+            return;
+        }
+        
         $post = Post::find($id);
         Post::destroy($id);
         Redirect::to('/blog/' . $post->blogId, array('message' => 'Kirjoitus on tuhottu!'));

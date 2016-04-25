@@ -66,6 +66,9 @@ class Blog extends BaseModel {
             array('name' => $this->name, 'description' => $this->description));
         $row = $query->fetch();
         $this->blogId = $row['blogid'];
+        
+        $query = DB::query('INSERT INTO BlogOwner (blogId, userId) VALUES (?, ?);',
+            array($this->blogId, $_SESSION['user']));
     }
     
     public function validate_content() {
