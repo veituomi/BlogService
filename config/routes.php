@@ -1,5 +1,9 @@
 <?php
 
+function login_first() {
+  BaseController::require_logged_in();
+}
+
   $routes->get('/', function() {
     HomeController::index();
   });
@@ -32,7 +36,7 @@
     BlogController::index();
   });
   
-  $routes->post('/blog', function() {
+  $routes->post('/blog', 'login_first', function() {
     BlogController::store();
   });
   
@@ -48,11 +52,11 @@
     BlogController::edit($id);
   });
   
-  $routes->post('/blog/:id/edit', function($id) {
+  $routes->post('/blog/:id/edit', 'login_first', function($id) {
     BlogController::update($id);
   });
   
-  $routes->post('/blog/:id/destroy', function($id) {
+  $routes->post('/blog/:id/destroy', 'login_first', function($id) {
     BlogController::destroy($id);
   });
   
@@ -60,11 +64,11 @@
     PostController::index();
   });
   
-  $routes->post('/post', function() {
+  $routes->post('/post', 'login_first', function() {
     PostController::store();
   });
   
-  $routes->post('/post/new', function() {
+  $routes->post('/post/new', 'login_first', function() {
     PostController::create();
   });
   
@@ -81,15 +85,15 @@
     PostController::edit($id);
   });
   
-  $routes->post('/post/:id/edit', function($id) {
+  $routes->post('/post/:id/edit', 'login_first', function($id) {
     PostController::update($id);
   });
   
-  $routes->post('/post/:id/destroy', function($id) {
+  $routes->post('/post/:id/destroy', 'login_first', function($id) {
     PostController::destroy($id);
   });
   
-  $routes->get('/post/:id/like', function($id) {
+  $routes->get('/post/:id/like', 'login_first', function($id) {
     LikesController::like($id);
   });
   
@@ -105,11 +109,11 @@
     UserController::edit($id);
   });
 
-  $routes->post('/comment', function() {
+  $routes->post('/comment', 'login_first', function() {
      CommentController::store(); 
   });
   
-  $routes->post('/comment/:id/destroy', function($id) {
+  $routes->post('/comment/:id/destroy', 'login_first', function($id) {
      CommentController::destroy($id); 
   });
   
@@ -117,6 +121,6 @@
     CommentController::edit($id);
   });
 
-  $routes->post('/comment/:id/edit', function($id) {
+  $routes->post('/comment/:id/edit', 'login_first', function($id) {
     CommentController::update($id);
   });
