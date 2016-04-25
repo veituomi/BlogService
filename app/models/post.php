@@ -1,6 +1,6 @@
 <?php
 class Post extends BaseModel {
-    public $postId, $blogId, $author, $title, $content;
+    public $postId, $blogId, $author, $title, $content, $likes;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -27,6 +27,12 @@ class Post extends BaseModel {
         return self::queryAndCollect('SELECT * FROM BlogPost WHERE blogId = ?', array($blogId));
     }
     
+    public static function allOrderedByLikes($limit) {
+        return self::queryAndCollect('SELECT *, (SELECT COUNT(*) FROM Likes WHERE Likes.postId = BlogPost.postId)
+            AS likes FROM BlogPost ORDER BY likes DESC LIMIT ?',
+            array($limit));
+    }
+    
     public static function allByUser($userId) {
         return self::queryAndCollect('SELECT * FROM BlogPost WHERE author = ?;', array($userId));
     }
@@ -50,12 +56,15 @@ class Post extends BaseModel {
         $posts = array();
         
         foreach ($rows as $row) {
+            $likes = 0;
+            if (isset($row['likes'])) $likes = $row['likes'];
             $posts[] = new Post(array(
                 'postId' => $row['postid'],
                 'blogId' => $row['blogid'],
                 'author' => $row['author'],
                 'title' => $row['title'],
-                'content' => $row['content']
+                'content' => $row['content'],
+                'likes' => $likes
             ));
         }
         

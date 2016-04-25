@@ -2,7 +2,7 @@
   class HomeController extends BaseController {
       
     public static function index(){      
-      $posts = Post::all();
+      $posts = Post::allOrderedByLikes(5);
    	  View::make('home.html', array('posts' => $posts));
     }
     

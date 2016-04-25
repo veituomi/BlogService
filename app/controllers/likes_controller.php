@@ -3,11 +3,6 @@ class LikesController extends BaseController {
     public static function like($postId) {
         $userId = BaseController::get_user_logged_in();
         
-        if ($userId == null) {
-            Redirect::to('/post/' . $postId, array('errors' => array('Kirjaudu ensin sisään!')));
-            return;
-        }
-        
         $like = new Likes(array('userId' => $userId, 'postId' => $postId));
         
         if ($like->find() == null) {
