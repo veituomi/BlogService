@@ -5,7 +5,19 @@ class Post extends BaseModel {
     public function __construct($attributes) {
         parent::__construct($attributes);
         $this->validators = array('validate_content');
-    }  
+    }
+    
+    public static function canEdit($postId) {
+        if (empty($_SESSION['user'])) return false;
+        $query = DB::query('SELECT * FROM BlogPost WHERE postId = ? AND author = ? LIMIT 1;',
+            array($postId, $_SESSION['user']));
+        if ($query->fetch()) return true;
+        return false;
+    }
+    
+    public static function canDestroy($postId) {
+        return isset($_SESSION['is_admin']) || self::canEdit($postId);
+    }
     
     public static function all() {
         return self::queryAndCollect('SELECT * FROM BlogPost ORDER BY postId DESC;');
@@ -55,6 +67,10 @@ class Post extends BaseModel {
             array('blogId' => $this->blogId, 'author' => $this->author, 'title' => $this->title, 'content' => $this->content));
         $row = $query->fetch();
         $this->postId = $row['postid'];
+    }
+    
+    public static function update($id){
+        // TODO
     }
     
     public static function destroy($postId) {

@@ -7,6 +7,18 @@ class Blog extends BaseModel {
         $this->validators = array('validate_content');
     }
     
+    public static function canEdit($blogId) {
+        if (empty($_SESSION['user'])) return false;
+        $query = DB::query('SELECT * FROM BlogOwner WHERE blogId = ? AND userId = ? LIMIT 1;',
+            array($blogId, $_SESSION['user']));
+        if ($query->fetch()) return true;
+        return false;
+    }
+    
+    public static function canDestroy($blogId) {
+        return isset($_SESSION['is_admin']) || self::canEdit($blogId);
+    }
+    
     public static function all() {
         return self::queryAndCollect('SELECT * FROM Blog;');
     }

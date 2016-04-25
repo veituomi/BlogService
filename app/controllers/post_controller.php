@@ -33,19 +33,26 @@ class PostController extends BaseController{
     
     public static function update($id){
         $post = new Post(array(
-                'postId' => $_POST['postId'],
-                'author' => $_POST['author'],
+                'postId' => $id,
+                'author' => $_SESSION['user'],
                 'title' => trim($_POST['title']),
                 'content' => trim($_POST['content'])
         ));
         
+        if (!Post::canEdit($post->postId)) {
+            Redirect::to('/post/' . $post->blogId, array('errors' => array('Ei ole vaadittavia oikeuksia.')));
+            return;
+        }
+        
         $errors = $post->errors();
+        
+        Kint::dump($errors);
 
-        if (empty($errors)) {
+        if (count($errors) == 0) {
             $post->update();
             Redirect::to('/post/' . $post->postId, array('message' => 'Kirjoitusta on muokattu!'));
         } else {
-            View::make('post/edit.html', array('errors' => $errors, 'post' => $post));
+            Redirect::to('/post/' . $post->postId . "/edit", array('errors' => $errors, 'post' => $post));
         }
     }
     

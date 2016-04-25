@@ -10,6 +10,9 @@
             
         if($user && $user->password === crypt($_POST['password'], $user->password)) {
             $_SESSION['user'] = $user->userId;
+            if ($user->isAdmin()) {
+                $_SESSION['is_admin'] = true;
+            }
             Redirect::to('/');
         } else {
            View::make('login.html', array('errors' => array('Virheelliset tunnistetiedot!'), 'username' => $_POST['username']));
@@ -59,6 +62,7 @@
     
     public static function handle_logout() {
         unset($_SESSION['user']);
+        unset($_SESSION['is_admin']);
         Redirect::to('/');
     }
 }

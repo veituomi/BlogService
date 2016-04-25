@@ -3,14 +3,18 @@
   <h1>{{blog.name}}</h1>
   
   <!-- For owner or admin only -->
+  {% if can_destroy %}
   <p>
-    <a href="{{base_path}}/blog/{{blog.blogId}}/edit" class="btn btn-default">Muokkaa</a>
+    <a href="{{base_path}}/blog/{{blog.blogId}}/edit" class="btn btn-default">Muokkaa tai poista</a>
   </p>
+  {% endif %}
   
+  {% if can_edit %}
   <form action="{{base_path}}/post/new" method="post">
     <input type="hidden" name="blogId" value="{{blog.blogId}}" />
     <input type="submit" value="Uusi kirjoitus" class="btn btn-default" />
   </form>
+  {% endif %}
   
   {{blog.description}}
   <!-- Description, statistics -->

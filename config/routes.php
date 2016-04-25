@@ -81,6 +81,10 @@
     PostController::edit($id);
   });
   
+  $routes->post('/post/:id/edit', function($id) {
+    PostController::update($id);
+  });
+  
   $routes->post('/post/:id/destroy', function($id) {
     PostController::destroy($id);
   });

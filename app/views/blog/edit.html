@@ -16,7 +16,10 @@
       <label>Kuvaus</label>
       <input type="text" class="form-control" name="description" value="{{blog.description}}">
     </div>
-
-    <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>
+    {% if can_edit %}
+      <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>
+    {% else %}
+      Et voi muokata tätä.
+    {% endif %}
   </form>
 {% endblock %}

@@ -6,17 +6,17 @@
     <input type="submit" class="btn btn-danger" value="Poista" />
   </form>
   
-  <form>
+  <form method="post">
     <!-- Text field for post title -->
     <div class="form-group">
       <label>Otsikko</label>
-      <input type="text" class="form-control" value="{{post.title}}">
+      <input type="text" class="form-control" name="title" value="{{post.title}}">
     </div>
 
     <!-- Editing component for the content -->
     <div class="form-group">
       <label>Sisältö</label>
-      <input type="text" class="form-control" value="{{post.content}}">
+      <input type="text" class="form-control" name="content" value="{{post.content}}">
     </div>
 
     <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>
