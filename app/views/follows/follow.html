@@ -1,0 +1,9 @@
+{% if user_logged_in %}
+<a href="{{base_path}}/post/{{post.postId}}/follow">
+{% if followed %}
+Lopeta seuraaminen
+{% else %}
+Seuraa käyttäjää
+{% endif %}
+</a>
+{% endif %}

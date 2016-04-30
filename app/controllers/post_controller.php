@@ -19,7 +19,11 @@ class PostController extends BaseController{
         $like = new Likes(array('userId' => BaseController::get_user_logged_in(), 'postId' => $postId));
         $liked = $like->find() != null;
         
-   	    View::make('post/show.html', array('post' => $post, 'comments' => $comments, 'liked' => $liked,
+        $follows = new Follows(array('follower' => BaseController::get_user_logged_in(), 'followee' => $post->author));
+        $followed = $follows->find() != null;
+        
+   	    View::make('post/show.html', array('post' => $post, 'comments' => $comments,
+           'liked' => $liked, 'followed' => $followed,
            'can_destroy' => Post::canDestroy($post->postId),
            'can_edit' => Post::canEdit($post->postId)));
     }

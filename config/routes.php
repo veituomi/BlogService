@@ -97,6 +97,10 @@ function login_first() {
     LikesController::like($id);
   });
   
+  $routes->get('/post/:id/follow', 'login_first', function($id) {
+    FollowsController::follow($id);
+  });
+  
   $routes->get('/user', function() {
     UserController::index();
   });
