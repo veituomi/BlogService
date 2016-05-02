@@ -12,17 +12,23 @@ class Tag extends BaseModel {
     
     public static function allInPost($postId) {
         return self::queryAndCollect('SELECT * FROM Tag t, TagCloud tc, BlogPost p 
-                WHERE t.tagId = tc.tagId AND tc.postId = p.postId AND p.postId = ?;', $postId);
+                WHERE t.tagId = tc.tagId AND tc.postId = p.postId AND p.postId = ?;', array($postId));
     }
     
     public static function find($tagId) {
-        $list = self::queryAndCollect('SELECT * FROM Tag WHERE tagId = ? LIMIT 1;', $tagId);
+        $list = self::queryAndCollect('SELECT * FROM Tag WHERE tagId = ? LIMIT 1;', array($tagId));
         if (empty($list)) return NULL;
         return $list[0];
     }
     
-    private static function queryAndCollect($q, $args = array() {
-        $query = DB::query($q, $args)             
+    public static function findByName($tagName) {
+        $list = self::queryAndCollect('SELECT * FROM Tag WHERE name = ? LIMIT 1;', array($tagName));
+        if (empty($list)) return NULL;
+        return $list[0];
+    }
+    
+    private static function queryAndCollect($q, $args = array()) {
+        $query = DB::query($q, $args);             
         $rows = $query->fetchAll();
         $tags = array();
           
@@ -40,7 +46,7 @@ class Tag extends BaseModel {
         $query = DB::query('INSERT INTO Tag (name) VALUES(:name) RETURNING tagId', 
             array('name' => $this->name));
         $row = $query->fetch();
-        $this->tagId = $row['tagId'];
+        $this->tagId = $row['tagid'];
     }
     
 }
