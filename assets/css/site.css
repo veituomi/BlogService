@@ -1,10 +1,28 @@
-#main-container{
-  max-width: 1200px;
-  padding: 10px 25px;
-  margin: 0px auto;
+#main-container {
+    max-width: 1200px;
+    padding: 10px 25px;
+    margin: 0px auto;
 }
 
-.navbar .container-fluid{
-  max-width: 1200px;
-  margin: 0px auto;
+.navbar .container-fluid {
+    /*max-width: 1200px;
+    margin: 0px auto;*/
+    background-color: #5bc0de;
+}
+
+#search-bar {
+    background-color: #5bc0de;
+    position: relative;
+    transform: translateY(25%);
+}
+
+.stylify {
+    background-color: #5bc0de;
+}
+
+.input-form {
+    width: 40%;
+    min-width: 200px;
+    max-width: 300;
+    margin: 0 auto; 
 }

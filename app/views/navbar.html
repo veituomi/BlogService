@@ -21,12 +21,12 @@
             <li><a href="{{base_path}}/user">Käyttäjät</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <!--<li class="search-bar">
+                <button type="submit" class="btn btn-default stylify"><span class="glyphicon glyphicon-search"></span></button>
+            </li>-->
             <li>
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-            </li>
-            <li>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Haku">
+                <div id="search-bar">
+                    <input type="text" class="form-control stylify" placeholder="Haku">
                 </div>
             </li>
             {% if user_logged_in %}

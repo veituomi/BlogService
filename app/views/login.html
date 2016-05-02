@@ -1,21 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="page-header">
-    <h1>Sisäänkirjautumislomake</h1>
-  </div>
-  
-  <form method="post">
-    <div class="form-group">
-      <label>Käyttäjätunnus</label>
-      <input type="text" name="username" class="form-control">
+    <div class="input-form">
+        <h1 class="text-center">Kirjaudu sisään</h1>
+        <div class="form-group">
+            <form method="post">
+                <input type="text" name="username" class="form-control" placeholder="Käyttäjätunnus" required autofocus>
+                <input type="password" name="password" class="form-control" placeholder="Salasana" required>
+                <button class="btn btn-block btn-primary" type="submit">Kirjaudu sisään</button>
+            </form>
+            <a href="{{base_path}}/register" class="text-center new-account">Tee uusi tunnus?</a>
+        </div>
     </div>
-
-    <div class="form-group">
-      <label>Salasana</label>
-      <input type="password" name="password" class="form-control">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
-  </form>
 {% endblock %}
