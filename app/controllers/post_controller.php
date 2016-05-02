@@ -15,6 +15,7 @@ class PostController extends BaseController{
     public static function show($postId) {
         $post = Post::find($postId);
         $comments = Comment::allInPost($postId);
+        $tags = TagCloud::getTags($postId);
         
         $like = new Likes(array('userId' => BaseController::get_user_logged_in(), 'postId' => $postId));
         $liked = $like->find() != null;
@@ -23,7 +24,7 @@ class PostController extends BaseController{
         $followed = $follows->find() != null;
         
    	    View::make('post/show.html', array('post' => $post, 'comments' => $comments,
-           'liked' => $liked, 'followed' => $followed,
+           'tags' => $tags, 'liked' => $liked, 'followed' => $followed,
            'can_destroy' => Post::canDestroy($post->postId),
            'can_edit' => Post::canEdit($post->postId)));
     }
@@ -34,7 +35,9 @@ class PostController extends BaseController{
     
     public static function edit($postId) {
         $post = Post::find($postId);
-   	    View::make('post/edit.html', array('post' => $post, 'can_destroy' => Post::canDestroy($post->postId),
+        $tags = implode(' ', TagCloud::getTags($postId));
+   	    View::make('post/edit.html', array('post' => $post, 'tags' => $tags,
+           'can_destroy' => Post::canDestroy($post->postId),
            'can_edit' => Post::canEdit($post->postId)));
     }
     
@@ -46,6 +49,8 @@ class PostController extends BaseController{
                 'content' => trim($_POST['content'])
         ));
         
+        $tags = explode(' ', trim($_POST['tags']), 10);
+        
         if (!Post::canEdit($post->postId)) {
             Redirect::to('/post/' . $post->postId, array('errors' => array('Ei ole vaadittavia oikeuksia.')));
             return;
@@ -55,6 +60,7 @@ class PostController extends BaseController{
 
         if (empty($errors)) {
             $post->update();
+            TagCloud::setTags($post->postId, $tags);
             Redirect::to('/post/' . $post->postId, array('message' => 'Kirjoitusta on muokattu!'));
         } else {
             Redirect::to('/post/' . $post->postId . "/edit", array('errors' => $errors, 'post' => $post));
@@ -80,10 +86,13 @@ class PostController extends BaseController{
                 'content' => trim($_POST['content'])
         ));
         
+        $tags = explode(' ', trim($_POST['tags']), 10);
+        
         $errors = $post->errors();
         
         if (empty($errors)) {
             $post->save();
+            TagCloud::setTags($post->postId, $tags);
             Redirect::to('/post/' . $post->postId, array('message' => 'Uusi kirjoitus on rekisteröity järjestelmään onnistuneesti!'));
         } else {
             View::make('post/create.html', array('blogId' => $_POST['blogId'], 'errors' => $errors));

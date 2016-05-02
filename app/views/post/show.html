@@ -11,6 +11,12 @@
   {% endif %}
   
   <div class="panel panel-default">
+    {% for tag in tags %}
+      #{{tag}}
+    {% endfor %}
+  </div>
+  
+  <div class="panel panel-default">
     {{post.content}}
   </div>
   
