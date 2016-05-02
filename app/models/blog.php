@@ -40,7 +40,12 @@ class Blog extends BaseModel {
     }
     
     public static function destroy($blogId) {
-        DB::query('DELETE FROM BlogPost WHERE blogId = ?;', array($blogId)); //must delete Comments/TagCloud/Likes linked with these posts?
+        $posts = Post::allInBlog($blogId);
+        
+        foreach ($posts as $post) {
+            Post::destroy($post->postId);
+        }
+        
         DB::query('DELETE FROM BlogOwner WHERE blogId = ?;', array($blogId));
         DB::query('DELETE FROM Blog WHERE blogId = ?;', array($blogId));
     }

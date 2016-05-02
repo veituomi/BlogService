@@ -2,7 +2,8 @@
 {% block content %}
   <h1>{{blog.name}}</h1>
   
-  <form action="{{base_path}}/blog/{{blog.blogId}}/destroy" method="post">
+  <form action="{{base_path}}/blog/{{blog.blogId}}/destroy" method="post" class="destroy-form" 
+        data-confirm="Oletko varma, että haluat poistaa blogin? Toimintoa ei voi peruuttaa">
     <input type="submit" class="btn btn-danger" value="Poista blogi" />
   </form>
   
