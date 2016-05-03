@@ -1,9 +1,9 @@
 <h2>Kommentit</h2>
 {% for comment in comments %}
-  <div class="panel panel-default">
-    <p>
-      {{comment.content}}
-    </p>
-    <a href="{{base_path}}/comment/{{comment.commentId}}/edit" class="btn btn-default">Muokkaa tai poista</a>
-  </div>
+    <div class="panel panel-default">
+        <p>{{comment.content}}</p>
+        <!--{% if can_edit %}-->
+            <a href="{{base_path}}/comment/{{comment.commentId}}/edit" class="btn btn-default">Muokkaa tai poista</a>
+        <!--{% endif %}-->
+    </div>
 {% endfor %}
