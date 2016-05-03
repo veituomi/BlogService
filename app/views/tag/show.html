@@ -3,7 +3,7 @@
     <h1>{{tag.name}}</h1>
     
     {% if posts is not empty %}
-        <h2>Related posts</h2>
+        <h2>Aihesanaan liittyvät kirjoitukset</h2>
         <ul>
         {% for post in posts %}
             <li><a href="{{base_path}}/post/{{post.postId}}">{{post.title}}</a></li>

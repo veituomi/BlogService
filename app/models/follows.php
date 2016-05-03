@@ -4,7 +4,7 @@ class Follows extends BaseModel {
     
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array();
+        $this->validators = array('validate_content');
     }
     
     public function find() {
@@ -24,5 +24,13 @@ class Follows extends BaseModel {
     
     public function destroy() {
         DB::query('DELETE FROM Follows WHERE follower = ? AND followee = ?', array($this->follower, $this->followee));
+    }
+    
+    public function validate_content() {
+        $errors = array();
+        if ($this->follower == $this->followee) {
+            $errors[] = 'Et voi seurata itseäsi!';
+        }
+        return $errors;
     }
 }

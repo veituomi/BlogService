@@ -7,12 +7,18 @@ class FollowsController extends BaseController {
         
         $follows = new Follows(array('follower' => $userId, 'followee' => $post->author));
         
-        if ($follows->find() == null) {
-            $follows->save();
-            Redirect::to('/post/' . $postId, array('message' => 'Seuraat käyttäjää.'));
+        $errors = $follows->errors();
+        
+        if (empty($errors)) {
+            if ($follows->find() == null) {
+                $follows->save();
+                Redirect::to('/post/' . $postId, array('message' => 'Seuraat käyttäjää.'));
+            } else {
+                $follows->destroy();
+                Redirect::to('/post/' . $postId, array('message' => 'Lopetit käyttäjän seuraamisen.'));
+            }
         } else {
-            $follows->destroy();
-            Redirect::to('/post/' . $postId, array('message' => 'Lopetit käyttäjän seuraamisen.'));
+            Redirect::to('/post/' . $postId, array('errors' => $errors));
         }
     }
 }

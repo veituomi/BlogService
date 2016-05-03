@@ -11,11 +11,6 @@ class Blogger extends BaseModel {
         return self::queryAndCollect('SELECT * FROM Blogger;');
     }
     
-    public static function allFolloweesByFollower($userId) {
-        return self::queryAndCollect('SELECT * FROM Blogger INNER JOIN Follows ON
-            Blogger.userId = Follows.followee WHERE Follows.follower = ?;', array($userId));
-    }
-    
     public static function find($userId) {
         $user = self::queryAndCollect('SELECT * FROM Blogger WHERE userId = ? LIMIT 1;', array($userId));
         if (empty($user)) return NULL;

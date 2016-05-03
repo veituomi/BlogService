@@ -3,7 +3,7 @@
     <h1>{{blogger.username}}</h1>
     
     {% if blogs is not empty %}
-        <h2>Blogs</h2>
+        <h2>Blogit</h2>
         <ul>
         {% for blog in blogs %}
             <li><a href="{{base_path}}/blog/{{blog.blogId}}">{{blog.name}}</a></li>
@@ -12,10 +12,19 @@
     {% endif %}
     
     {% if followees is not empty %}
-        <h2>Follows</h2>
+        <h2>Seuraa käyttäjiä</h2>
         <ul>
         {% for followee in followees %}
             <li><a href="{{base_path}}/user/{{followee.userId}}">{{followee.username}}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {% if followers is not empty %}
+        <h2>Käyttäjää seuraavat</h2>
+        <ul>
+        {% for follower in followers %}
+            <li><a href="{{base_path}}/user/{{followee.userId}}">{{follower.username}}</a></li>
         {% endfor %}
         </ul>
     {% endif %}

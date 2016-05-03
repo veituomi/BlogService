@@ -1,6 +1,8 @@
 <?php
 class Post extends BaseModel {
-    public $postId, $blogId, $author, $title, $content, $likes;
+    public $postId, $blogId, $author, $title, $content;
+    
+    public $likes;
     
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -29,7 +31,9 @@ class Post extends BaseModel {
     }
     
     public static function allInBlog($blogId) {
-        return self::queryAndCollect('SELECT * FROM BlogPost WHERE blogId = ?', array($blogId));
+        return self::queryAndCollect('SELECT *, (SELECT COUNT(*) FROM Likes WHERE Likes.postId = BlogPost.postId)
+            AS likes FROM BlogPost WHERE blogId = ? ORDER BY postId DESC',
+            array($blogId));
     }
     
     public static function allOrderedByLikes($limit) {
