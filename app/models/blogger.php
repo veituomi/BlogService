@@ -2,6 +2,8 @@
 class Blogger extends BaseModel {
     public $userId, $username, $password, $email, $joinDate, $profileDescription;
     
+    public $blogPostCount;
+    
     public function __construct($attributes) {
         parent::__construct($attributes);
         $this->validators = array('validate_content');
@@ -18,7 +20,7 @@ class Blogger extends BaseModel {
     }
     
     public static function all() {
-        return self::queryAndCollect('SELECT * FROM Blogger;');
+        return self::queryAndCollect('SELECT *, (SELECT COUNT(*) FROM BlogPost WHERE author = Blogger.userId) AS blogPostCount FROM Blogger;');
     }
     
     public static function find($userId) {
@@ -57,13 +59,17 @@ class Blogger extends BaseModel {
         $bloggers = array();
         
         foreach ($rows as $row) {
+            $blogPostCount = 0;
+            if (isset($row['blogpostcount'])) $blogPostCount = $row['blogpostcount'];
+            
             $bloggers[] = new Blogger(array(
                 'userId' => $row['userid'],
                 'username' => $row['username'],
                 'password' => $row['password'],
                 'email' => $row['email'],
                 'joinDate' => $row['joindate'],
-                'profileDescription' => $row['profiledescription']
+                'profileDescription' => $row['profiledescription'],
+                'blogPostCount' => $blogPostCount
             ));
         }
         
@@ -78,6 +84,11 @@ class Blogger extends BaseModel {
             'profileDescription' => $this->profileDescription));
         $row = $query->fetch();
         $this->userId = $row['userid'];
+    }
+    
+    public function update() {
+        DB::query('UPDATE Blogger SET password = ?, profileDescription = ? WHERE userId = ?',
+            array($this->password, $this->profileDescription, $this->userId));
     }
     
     public static function destroy($userId) {

@@ -6,8 +6,8 @@
     <thead>
       <tr>
         <th>Nimi</th>
-        <th>Kirjoitukset</th>
-        <th>Tykkäykset</th>
+        <th>Kuvaus</th>
+        <th>Kirjoituksia</th>
       </tr>
     </thead>
 
@@ -15,8 +15,8 @@
       {% for blogger in bloggers %}
       <tr>
         <td><a href="{{base_path}}/user/{{blogger.userId}}">{{blogger.username}}</a></td>
-        <td>Mitä</td>
-        <td>tähän?</td>
+        <td>{{blogger.profileDescription}}</td>
+        <td>{{blogger.blogPostCount}}</td>
       </tr>
       {% endfor %}
     </tbody>

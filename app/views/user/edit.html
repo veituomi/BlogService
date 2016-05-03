@@ -7,25 +7,25 @@
     <input type="submit" class="btn btn-danger" value="Poista" />
   </form>
   
-  <form>
+  <form method="post">
     <div class="form-group">
       <label>Uusi salasana</label>
-      <input type="password" class="form-control">
+      <input type="password" name="newPassword1" class="form-control"/>
     </div>
     
     <div class="form-group">
       <label>Uusi salasana uudestaan</label>
-      <input type="password" class="form-control">
+      <input type="password" name="newPassword2" class="form-control"/>
     </div>
     
     <div class="form-group">
       <label>Vanha salasana</label>
-      <input type="password" class="form-control">
+      <input type="password" name="oldPassword" class="form-control"/>
     </div>
     
     <div class="form-group">
-      <label>Käyttäjän kuvaus</label>
-      <input type="text" value="{{blogger.profileDescription}}" class="form-control">
+      <label>Käyttäjän kuvaus (ylempiä kenttiä ei tarvitse täyttää, jos haluat ainoastaan muokata kuvausta)</label>
+      <input type="text" value="{{blogger.profileDescription}}" name="profileDescription" class="form-control"/>
     </div>
 
     <button type="submit" class="btn btn-primary">Ota muutokset käyttöön</button>
