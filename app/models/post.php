@@ -30,6 +30,13 @@ class Post extends BaseModel {
             WHERE TagCloud.tagId = ?', array($tagId));
     }
     
+    public static function allFollowedByUser($userId) {
+        return self::queryAndCollect('SELECT *, (SELECT COUNT(*) FROM Likes WHERE Likes.postId = BlogPost.postId) AS likes
+            FROM BlogPost INNER JOIN Follows ON BlogPost.author = Follows.followee
+            WHERE Follows.follower = ? ORDER BY postId DESC',
+            array($userId));
+    }
+    
     public static function allInBlog($blogId) {
         return self::queryAndCollect('SELECT *, (SELECT COUNT(*) FROM Likes WHERE Likes.postId = BlogPost.postId)
             AS likes FROM BlogPost WHERE blogId = ? ORDER BY postId DESC',

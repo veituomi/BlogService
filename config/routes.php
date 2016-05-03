@@ -60,7 +60,7 @@
         BlogController::destroy($id);
     });
     
-    $routes->get('/post', function() {
+    $routes->get('/post', 'login_first', function() {
         PostController::index();
     });
     

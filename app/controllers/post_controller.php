@@ -1,9 +1,9 @@
 <?php
 class PostController extends BaseController{
-      
+    
     public static function index() {
-        $posts = Post::all();
-        View::make('post/all.html', array('posts' => $posts));
+        $posts = Post::allFollowedByUser(BaseController::get_user_logged_in());
+        View::make('post/followed.html', array('posts' => $posts));
     }
 
     // For testing purposes only

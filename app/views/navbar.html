@@ -16,7 +16,9 @@
         <ul class="nav navbar-nav">
             <!-- Navigation links -->
             <li><a href="{{base_path}}/blog">Blogit</a></li>
-            <!--<li><a href="./post">Kirjoitukset</a></li>-->
+            {% if user_logged_in %}
+                <li><a href="{{base_path}}/post">Kirjoitukset</a></li>
+            {% endif %}
             <!--<li><a href="{{base_path}}/">Aihesanat</a></li>-->
             <li><a href="{{base_path}}/user">Käyttäjät</a></li>
         </ul>
