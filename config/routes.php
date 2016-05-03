@@ -101,6 +101,10 @@
         FollowsController::follow($id);
     });
     
+    $routes->get('/tag/:name', function($name) {
+        TagController::show($name);
+    });
+    
     $routes->get('/user', function() {
         UserController::index();
     });

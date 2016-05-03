@@ -23,6 +23,11 @@ class Post extends BaseModel {
         return self::queryAndCollect('SELECT * FROM BlogPost ORDER BY postId DESC;');
     }
     
+    public static function allByTag($tagId) {
+        return self::queryAndCollect('SELECT * FROM BlogPost NATURAL JOIN TagCloud
+            WHERE TagCloud.tagId = ?', array($tagId));
+    }
+    
     public static function allInBlog($blogId) {
         return self::queryAndCollect('SELECT * FROM BlogPost WHERE blogId = ?', array($blogId));
     }
