@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends BaseController{
+class UserController extends BaseController {
 
     public static function index() {
         $bloggers = Blogger::all();
@@ -9,7 +9,10 @@ class UserController extends BaseController{
     
     public static function show($id) {
         $blogger = Blogger::find($id);
-        View::make('user/show.html', array('blogger' => $blogger));
+        $viewer = new Blogger(array('userId' => BaseController::get_user_logged_in()));
+        
+        View::make('user/show.html', array('blogger' => $blogger, 
+            'can_edit' => ($id == $viewer->userId || $viewer->isAdmin())));
     }
     
     public static function edit($id) {

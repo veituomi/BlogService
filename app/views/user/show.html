@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>{{blogger.username}}</h1>
+    <h1>{{blogger.username}}</h1>
   
-  <!-- For user or admin only -->
+    <!-- For user or admin only -->
   
-  <p>
-    <a href="{{base_path}}/user/{{blogger.userId}}/edit" class="btn btn-default">Muokkaa tai poista</a>
-  </p>
-  
-
+    {% if can_edit %}
+        <p><a href="{{base_path}}/user/{{blogger.userId}}/edit" class="btn btn-default">Muokkaa tai poista</a></p>
+    {% endif %}
 {% endblock %}
