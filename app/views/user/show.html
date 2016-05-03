@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>{{blogger.username}}</h1>
+    
+    {% if blogs is not empty %}
+        <h2>Blogs</h2>
+        <ul>
+        {% for blog in blogs %}
+            <li><a href="{{base_path}}/blog/{{blog.blogId}}">{{blog.name}}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {% if followees is not empty %}
+        <h2>Follows</h2>
+        <ul>
+        {% for followee in followees %}
+            <li><a href="{{base_path}}/user/{{followee.userId}}">{{followee.username}}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
   
     <!-- For user or admin only -->
   

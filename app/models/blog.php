@@ -24,8 +24,8 @@ class Blog extends BaseModel {
     }
     
     public static function allByUser($userId) {
-        return self::queryAndCollection('SELECT b.blogId, b.name, b.description FROM Blog b, BlogOwner bo, 
-            Blogger bl WHERE bl.userId = ? AND bo.userId = bl.userId AND bo.blogId = b.blogId');
+        return self::queryAndCollect('SELECT b.blogId, b.name, b.description FROM Blog b, BlogOwner bo, 
+            Blogger bl WHERE bl.userId = ? AND bo.userId = bl.userId AND bo.blogId = b.blogId', array($userId));
     }
     
     public static function find($blogId) {
