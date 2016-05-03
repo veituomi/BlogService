@@ -40,13 +40,6 @@ class Blog extends BaseModel {
     }
     
     public static function destroy($blogId) {
-        $posts = Post::allInBlog($blogId);
-        
-        foreach ($posts as $post) {
-            Post::destroy($post->postId);
-        }
-        
-        DB::query('DELETE FROM BlogOwner WHERE blogId = ?;', array($blogId));
         DB::query('DELETE FROM Blog WHERE blogId = ?;', array($blogId));
     }
     

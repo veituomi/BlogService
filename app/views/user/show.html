@@ -24,7 +24,7 @@
         <h2>Käyttäjää seuraavat</h2>
         <ul>
         {% for follower in followers %}
-            <li><a href="{{base_path}}/user/{{followee.userId}}">{{follower.username}}</a></li>
+            <li><a href="{{base_path}}/user/{{follower.userId}}">{{follower.username}}</a></li>
         {% endfor %}
         </ul>
     {% endif %}

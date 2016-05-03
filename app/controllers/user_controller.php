@@ -23,5 +23,15 @@ class UserController extends BaseController {
         $blogger = Blogger::find($id);
         View::make('user/edit.html', array('blogger' => $blogger));
     }
+    
+    public static function destroy($id) {
+        if (!Blogger::canDestroy($id)) {
+            Redirect::to('/user/' . $id, array('errors' => array('Ei ole vaadittavia oikeuksia.')));
+            return;
+        }
+        
+        Blogger::destroy($id);
+        View::make('user/list.html', array('message' => 'Käyttäjä on tuhottu!'));
+    }
    
 }

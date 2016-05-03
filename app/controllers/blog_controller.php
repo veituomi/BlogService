@@ -54,7 +54,7 @@ class BlogController extends BaseController{
         }
         
         Blog::destroy($id);
-        Redirect::to('/blog');
+        Redirect::to('/blog', array('message' => 'Blogi on tuhottu!'));
     }
     
     public static function store() {

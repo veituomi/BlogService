@@ -14,13 +14,13 @@ CREATE TABLE Blog (
 );
 
 CREATE TABLE Admin (
-	userId int REFERENCES Blogger(userId)
+	userId int REFERENCES Blogger(userId) ON DELETE CASCADE
 );
 
 CREATE TABLE BlogPost (
 	postId serial PRIMARY KEY,
-	blogId int REFERENCES Blog(blogId),
-    author int REFERENCES Blogger(userId),
+	blogId int REFERENCES Blog(blogId) ON DELETE CASCADE,
+    author int REFERENCES Blogger(userId) ON DELETE CASCADE,
     title text NOT NULL,
 	content text NOT NULL,
 	date timestamp DEFAULT now()
@@ -28,8 +28,8 @@ CREATE TABLE BlogPost (
 
 CREATE TABLE Comment (
 	commentId serial PRIMARY KEY,
-	postId int REFERENCES BlogPost(postId),
-	userId int REFERENCES Blogger(userId),
+	postId int REFERENCES BlogPost(postId) ON DELETE CASCADE,
+	userId int REFERENCES Blogger(userId) ON DELETE CASCADE,
 	content text NOT NULL,
 	date timestamp DEFAULT now()
 );
@@ -40,21 +40,21 @@ CREATE TABLE Tag (
 );
 
 CREATE TABLE TagCloud (
-	tagId int REFERENCES Tag(tagId),
-	postId int REFERENCES BlogPost(postId)
+	tagId int REFERENCES Tag(tagId) ON DELETE CASCADE,
+	postId int REFERENCES BlogPost(postId) ON DELETE CASCADE
 );
 
 CREATE TABLE BlogOwner (
-	userId int REFERENCES Blogger(userId),
-	blogId int REFERENCES Blog(blogId)
+	userId int REFERENCES Blogger(userId) ON DELETE CASCADE,
+	blogId int REFERENCES Blog(blogId) ON DELETE CASCADE
 );
 
 CREATE TABLE Likes (
-    userId int REFERENCES Blogger(userId),
-	postId int REFERENCES BlogPost(postId)
+    userId int REFERENCES Blogger(userId) ON DELETE CASCADE,
+	postId int REFERENCES BlogPost(postId) ON DELETE CASCADE
 );
 
 CREATE TABLE Follows (
-	follower int REFERENCES Blogger(userId),
-	followee int REFERENCES Blogger(userId)
+	follower int REFERENCES Blogger(userId) ON DELETE CASCADE,
+	followee int REFERENCES Blogger(userId) ON DELETE CASCADE
 );

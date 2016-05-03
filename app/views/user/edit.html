@@ -2,7 +2,10 @@
 {% block content %}
   <h1>{{blogger.username}}</h1>
   
-  <button class="btn btn-danger">Poista käyttäjä</button>
+  <form action="{{base_path}}/user/{{blogger.userId}}/destroy" method="post" class="destroy-form" 
+        data-confirm="Oletko varma, että haluat poistaa käyttäjän? Toimintoa ei voi peruuttaa">
+    <input type="submit" class="btn btn-danger" value="Poista" />
+  </form>
   
   <form>
     <div class="form-group">

@@ -1,5 +1,7 @@
 <?php
 
+    \Slim\Route::setDefaultConditions(array('id' => '[0-9]{1,}'));
+
     function login_first() {
         BaseController::require_logged_in();
     }
@@ -115,6 +117,14 @@
 
     $routes->get('/user/:id/edit', function($id) {
         UserController::edit($id);
+    });
+
+    $routes->post('/user/:id/edit', function($id) {
+        UserController::update($id);
+    });
+
+    $routes->post('/user/:id/destroy', function($id) {
+        UserController::destroy($id);
     });
 
     $routes->post('/comment', 'login_first', function() {

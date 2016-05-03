@@ -7,6 +7,16 @@ class Blogger extends BaseModel {
         $this->validators = array('validate_content');
     }
     
+    public static function canEdit($userId) {
+        if (!isset($_SESSION['user'])) return false;
+        if ($_SESSION['user'] == $userId) return true;
+        return false;
+    }
+    
+    public static function canDestroy($userId) {
+        return isset($_SESSION['is_admin']) || self::canEdit($userId);
+    }
+    
     public static function all() {
         return self::queryAndCollect('SELECT * FROM Blogger;');
     }
@@ -68,6 +78,10 @@ class Blogger extends BaseModel {
             'profileDescription' => $this->profileDescription));
         $row = $query->fetch();
         $this->userId = $row['userid'];
+    }
+    
+    public static function destroy($userId) {
+        $query = DB::query('DELETE FROM Blogger WHERE userId = ?', array($userId));
     }
 
     public function validate_content() {
