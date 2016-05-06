@@ -11,7 +11,8 @@ class BlogController extends BaseController{
         $blog = Blog::find($id);
         $posts = Post::allInBlog($id);
    	    View::make('blog/show.html', array('blog' => $blog, 'posts' => $posts,
-           'can_destroy' => Blog::canDestroy($blog->blogId), 'can_edit' => Blog::canEdit($blog->blogId)));
+           'can_destroy' => Blog::canDestroy($blog->blogId), 'can_edit' => Blog::canEdit($blog->blogId),
+           'author' => Blogger::findByBlog($id)));
     }
     
     public static function edit($id) {

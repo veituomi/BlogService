@@ -10,7 +10,7 @@
             
         if($user && $user->password === crypt($_POST['password'], $user->password)) {
             $_SESSION['user'] = $user->userId;
-            if ($user->isAdmin()) {
+            if (Blogger::isAdmin($user->userId)) {
                 $_SESSION['is_admin'] = true;
             }
             Redirect::to('/');

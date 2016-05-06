@@ -12,11 +12,10 @@ class UserController extends BaseController {
         $blogs = Blog::allByUser($id);
         $followees = Blogger::getFollowees($id);
         $followers = Blogger::getFollowers($id);
-        $viewer = new Blogger(array('userId' => BaseController::get_user_logged_in()));
+        $canEdit = BaseController::get_user_logged_in() == $id || isset($_SESSION['is_admin']);
         
-        View::make('user/show.html', array('blogger' => $blogger,
-            'followees' => $followees, 'followers' => $followers,
-            'blogs' => $blogs, 'can_edit' => ($id == $viewer->userId || $viewer->isAdmin())));
+        View::make('user/show.html', array('blogger' => $blogger, 'followees' => $followees, 'followers' => $followers,
+            'blogs' => $blogs, 'can_edit' => $canEdit));
     }
     
     public static function edit($id) {

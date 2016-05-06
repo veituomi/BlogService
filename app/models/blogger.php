@@ -29,14 +29,20 @@ class Blogger extends BaseModel {
         return $user[0];
     }
     
+    public static function findByBlog($blogId) {
+        $user = self::queryAndCollect('SELECT * FROM Blogger b, BlogOwner o WHERE b.userId = o.userId AND o.blogId = ? LIMIT 1;', array($blogId));
+        if (empty($user)) return NULL;
+        return $user[0];
+    }
+    
     public static function findByName($username) {
         $user = self::queryAndCollect('SELECT * FROM Blogger WHERE username = ? LIMIT 1;', array($username));
         if (empty($user)) return NULL;
         return $user[0];
     }
     
-    public function isAdmin() {
-        $query = DB::query('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', array($this->userId));
+    public static function isAdmin($userId) {
+        $query = DB::query('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', array($userId));
         if ($query->fetch()) return true;
         return false;
     }

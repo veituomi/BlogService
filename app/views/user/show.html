@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>{{blogger.username}}</h1>
+    {{blogger.profileDescription}}
     
     {% if blogs is not empty %}
         <h2>Blogit</h2>
