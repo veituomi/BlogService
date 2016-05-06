@@ -2,7 +2,8 @@
 {% block content %}
   <h1>Muokkaa kommenttia</h1>
   
-  <form action="{{base_path}}/comment/{{comment.commentId}}/destroy" method="post">
+  <form action="{{base_path}}/comment/{{comment.commentId}}/destroy" method="post"  class="destroy-form" 
+        data-confirm="Oletko varma, että haluat poistaa kommentin? Toimintoa ei voi peruuttaa">
     <input type="submit" class="btn btn-danger" value="Poista kommentti" />
   </form>
   
