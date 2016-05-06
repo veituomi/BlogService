@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>{{blogger.username}}</h1>
+    <!-- For user or admin only -->
+    {% if can_edit %}
+        <p><a href="{{base_path}}/user/{{blogger.userId}}/edit" class="btn btn-default">Muokkaa tai poista</a></p>
+    {% endif %}
+    
     {{blogger.profileDescription}}
     
     {% if blogs is not empty %}
@@ -28,11 +33,5 @@
             <li><a href="{{base_path}}/user/{{follower.userId}}">{{follower.username}}</a></li>
         {% endfor %}
         </ul>
-    {% endif %}
-  
-    <!-- For user or admin only -->
-  
-    {% if can_edit %}
-        <p><a href="{{base_path}}/user/{{blogger.userId}}/edit" class="btn btn-default">Muokkaa tai poista</a></p>
     {% endif %}
 {% endblock %}

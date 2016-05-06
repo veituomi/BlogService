@@ -41,8 +41,8 @@ class Blogger extends BaseModel {
         return $user[0];
     }
     
-    public static function isAdmin($userId) {
-        $query = DB::query('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', array($userId));
+    public function isAdmin() {
+        $query = DB::query('SELECT * FROM Admin WHERE userId = ? LIMIT 1;', array($this->userId));
         if ($query->fetch()) return true;
         return false;
     }

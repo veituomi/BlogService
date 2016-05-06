@@ -26,7 +26,7 @@ class PostController extends BaseController{
    	    View::make('post/show.html', array('post' => $post, 'comments' => $comments,
            'tags' => $tags, 'liked' => $liked, 'followed' => $followed,
            'can_destroy' => Post::canDestroy($post->postId),
-           'can_edit' => Post::canEdit($post->postId), 'author' => $post->author));
+           'can_edit' => Post::canEdit($post->postId), 'author' => Blogger::find($post->author)));
     }
     
     public static function create() {
@@ -50,7 +50,9 @@ class PostController extends BaseController{
         ));
         
         $tags = explode(' ', trim($_POST['tags']), 6);
-        array_pop($tags);
+        if (count($tags) == 6) {
+            array_pop($tags);
+        }
         $tags = array_unique($tags);
         
         if (!Post::canEdit($post->postId)) {
@@ -89,7 +91,9 @@ class PostController extends BaseController{
         ));
         
         $tags = explode(' ', trim($_POST['tags']), 6);  //not perfect
-        array_pop($tags);
+        if (count($tags) == 6) {
+            array_pop($tags);
+        }
         $tags = array_unique($tags);
         
         $errors = $post->errors();

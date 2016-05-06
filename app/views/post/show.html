@@ -16,8 +16,9 @@
     {% endfor %}
   </div>
   
+  <a href="{{base_path}}/user/{{author.userId}}">{{author.username}}</a>
+      
   <div class="panel panel-default">
-    <a href="{{base_path}}/user/{{author.userId}}">{{author.username}}</a><br>
     {{post.content|nl2br}}
   </div>
   
