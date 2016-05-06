@@ -24,24 +24,23 @@
     }
     
     public static function handle_register() {
-        //if (empty($_POST['email']) || empty($_POST['username']) || empty($_POST['password'])) {
-        //    Redirect::to('/register', array('errors' => array('Täytä kaikki kentät ennen lähettämistä!')));
-        //    return;
-        //}
-        
         $email = trim($_POST['email']);
         $username = trim($_POST['username']);
-        $password = crypt($_POST['password']); //crypt($params['password']); //allow spaces maybe
+        $password = crypt($_POST['password']);
         
         $user = new Blogger(array('username' => $username, 'password' => $password, 'email' => $email));
         
         $errors = $user->errors();
         
+        if (strlen($_POST['password']) < 6) {
+            $errors[] = 'Käytä salasanassa vähintään kuusi merkkiä!';
+        }
+        
         if (empty($errors)) {
             try {
                 $user->save();
                 $_SESSION['user'] = $user->userId;
-                Redirect::to('/user/'. $user->userId . '/edit');
+                Redirect::to('/');
             } catch (PDOException $e) {
                 $error = $e->getMessage();
                 

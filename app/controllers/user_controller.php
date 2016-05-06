@@ -54,6 +54,10 @@ class UserController extends BaseController {
         if ($_POST['newPassword1'] != $_POST['newPassword2']) {
             $errors[] = 'Uuden salasanan kaksoiskappale ei täsmää!';
         }
+        
+        if (strlen($_POST['newPassword1']) < 6) {
+            $errors[] = 'Käytä salasanassa vähintään kuusi merkkiä!';
+        }
 
         if (empty($errors)) {
             $blogger->update();

@@ -111,10 +111,6 @@ class Blogger extends BaseModel {
         if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)){
             $errors[] = 'Käytä validia sähköpostia!';
         }
-        
-        if (strlen($this->password) < 6) {
-            $errors[] = 'Käytä salasanassa vähintään kuusi merkkiä!';
-        }
 
         return $errors;
     }
