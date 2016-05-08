@@ -26,7 +26,8 @@ class PostController extends BaseController{
    	    View::make('post/show.html', array('post' => $post, 'comments' => $comments,
            'tags' => $tags, 'liked' => $liked, 'followed' => $followed,
            'can_destroy' => Post::canDestroy($post->postId),
-           'can_edit' => Post::canEdit($post->postId), 'author' => Blogger::find($post->author)));
+           'can_edit' => Post::canEdit($post->postId), 'author' => Blogger::find($post->author),
+           'is_admin' => isset($_SESSION['is_admin']), 'user' => BaseController::get_user_logged_in()));
     }
     
     public static function create() {

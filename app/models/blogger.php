@@ -56,8 +56,6 @@ class Blogger extends BaseModel {
         return self::queryAndCollect('SELECT * FROM Blogger b, Follows f WHERE f.follower = ? AND
             f.followee = b.userId', array($userId));
     }
-    
-    //getLikedPosts
 
     private static function queryAndCollect($q, $args = array()) {
         $query = DB::query($q, $args);        
