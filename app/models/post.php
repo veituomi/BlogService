@@ -8,7 +8,7 @@ class Post extends BaseModel {
         parent::__construct($attributes);
         $this->validators = array('validate_content');
     }
-    
+
     public static function canEdit($postId) {
         if (!isset($_SESSION['user'])) return false;
         $query = DB::query('SELECT * FROM BlogPost WHERE postId = ? AND author = ? LIMIT 1;',
@@ -57,6 +57,11 @@ class Post extends BaseModel {
         $list = self::queryAndCollect('SELECT * FROM BlogPost WHERE postId = ? LIMIT 1;', array($postId));
         if (empty($list)) return NULL;
         return $list[0];
+    }
+    
+      public static function search($query) {
+        $query = '%' . $query . '%';
+        return self::queryAndCollect('SELECT * FROM BlogPost WHERE lower(title) LIKE lower(?);', array($query));
     }
 
     public static function getLikeCount($postId) {

@@ -107,6 +107,10 @@
         TagController::show($name);
     });
     
+    $routes->get('/search/:query', function($query) {
+        SearchController::show($query);
+    });
+    
     $routes->get('/user', function() {
         UserController::index();
     });

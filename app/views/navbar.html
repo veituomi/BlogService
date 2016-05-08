@@ -23,13 +23,10 @@
             <li><a href="{{base_path}}/user">Käyttäjät</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <!--<li class="search-bar">
-                <button type="submit" class="btn btn-default stylify"><span class="glyphicon glyphicon-search"></span></button>
-            </li>-->
             <li>
                 <div id="search-bar">
-                    <form onsubmit="window.location.href='{{base_path}}/tag/'+document.getElementById('searchTextbox').value;return false;" >
-                        <input type="text" class="form-control stylify" id="searchTextbox" placeholder="Hae aihesanalla">
+                    <form onsubmit="window.location.href='{{base_path}}/search/'+document.getElementById('searchTextbox').value.replace(' ', '-');return false;" >
+                        <input type="text" class="form-control stylify" id="searchTextbox" placeholder="Hae">
                     </form>
                 </div>
             </li>

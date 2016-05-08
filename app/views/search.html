@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{{query|replace({'-': " "})}}</h1>
+    
+    {% if blogs is not empty %}
+        <h2>Hakua koskevat blogit:</h2>
+        <ul>
+        {% for blog in blogs %}
+            <li><a href="{{base_path}}/blog/{{blog.blogId}}">{{blog.name}}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {% if posts is not empty %}
+        <h2>Hakua koskevat kirjoitukset:</h2>
+        <ul>
+        {% for post in posts %}
+            <li><a href="{{base_path}}/post/{{post.postId}}">{{post.title}}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {% if blogs is empty and posts is empty %}
+        <h2>Valitettavasti mitään ei löytynyt</h2>
+    {% endif %}
+
+{% endblock %}

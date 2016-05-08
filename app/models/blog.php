@@ -34,6 +34,11 @@ class Blog extends BaseModel {
         return $list[0];
     }
     
+    public static function search($query) {
+        $query = '%' . $query . '%';
+        return self::queryAndCollect('SELECT * FROM Blog WHERE lower(name) LIKE lower(?);', array($query));
+    }
+    
     public function update() {
         DB::query('UPDATE Blog SET name = ?, description = ? WHERE blogId = ?',
             array($this->name, $this->description, $this->blogId));
@@ -82,5 +87,4 @@ class Blog extends BaseModel {
         
         return $errors;
     }
-    
 }
