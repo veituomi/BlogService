@@ -26,9 +26,17 @@ class CommentController extends BaseController{
     }
     
     public static function destroy($id) {
-        $postId = Comment::find($id)->postId;
-        Comment::destroy($id);
-        Redirect::to('/post/' . $postId, array('message' => 'Kommentti on poistettu!'));
+        $message = array('message' => 'Kommentti on poistettu!');
+        $comment = Comment::find($id);
+        $postId = $comment->postId;
+        
+        if ($comment->canDestroy($id)) {
+            Comment::destroy($id);
+        } else {
+            $message['message'] = 'Kommenttia ei voitu poistaa!';
+        }
+        
+        Redirect::to('/post/' . $postId, $message);
     }
     
     public static function store() {

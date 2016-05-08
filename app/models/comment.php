@@ -7,6 +7,14 @@ class Comment extends BaseModel {
         $this->validators = array('validate_content', 'validate_login');
     }
     
+    public function canEdit() {
+        return BaseController::get_user_logged_in() == $this->userId || isset($_SESSION['is_admin']);        
+    }
+    
+    public function canDestroy() {
+        return self::canEdit();
+    }
+    
     public static function all() {
         return self::queryAndCollect('SELECT * FROM Comment;');
     }
