@@ -25,7 +25,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <div id="search-bar">
-                    <form onsubmit="window.location.href='{{base_path}}/search/'+document.getElementById('searchTextbox').value.replace(' ', '-');return false;" >
+                    <form onsubmit="window.location.href='{{base_path}}/search/'+document.getElementById('searchTextbox').value.replace(/[^a-zA-Z0-9]/g, '-').replace(' ', '-');return false;" >
                         <input type="text" class="form-control stylify" id="searchTextbox" placeholder="Hae">
                     </form>
                 </div>
